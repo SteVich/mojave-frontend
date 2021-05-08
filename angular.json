@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -64,7 +65,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mojave:build"
+            "browserTarget": "mojave:build",
+            "proxyConfig": "proxy-config.json",
+            "port": 4200
           },
           "configurations": {
             "production": {
@@ -90,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "../node_modules/font-awesome/css/font-awesome.css"
             ],

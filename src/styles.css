@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+@import '../node_modules/@syncfusion/ej2-angular-notifications/styles/material.css';
+
+:root {
+  --error-message-color: #4b4848;
+  --main-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%)
+}
 
 * {
   margin: 0;
@@ -20,3 +26,36 @@ input {
   min-height: 100vh;
   overflow: hidden;
 }
+
+.validation-error-message {
+  text-align: center;
+  font-size: 1.5vh;
+  font-weight: bold;
+  padding-bottom: 9px;
+  color: var(--error-message-color);
+}
+
+.input-field-invalid {
+  border-color: var(--error-message-color);
+  border-style: solid;
+}
+
+.success-toast .toast-title {
+  text-align: center;
+}
+
+.success-toast .toast-content {
+  text-align: center;
+}
+
+.e-toast-container .e-toast {
+  background-color: #5169ef;
+  z-index:100;
+}
+
+.shadow {
+  background: rgba(102, 102, 102, 0.5);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

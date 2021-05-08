@@ -2,17 +2,45 @@
 <div class="container" [ngClass]="{'sign-up-mode':openSignUp}">
   <div class="forms-container">
     <div class="signin-signup">
-      <form action="#" class="sign-in-form">
+
+      <form action="#" class="sign-in-form" [formGroup]="loginForm">
         <h2 class="title">Sign in</h2>
-        <div class="input-field">
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : loginUsernameOrEmail.invalid && (loginUsernameOrEmail.dirty || loginUsernameOrEmail.touched)}">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username"/>
+          <input type="text" placeholder="Username or email" formControlName="usernameOrEmail" required/>
         </div>
-        <div class="input-field">
+        <div *ngIf="loginUsernameOrEmail.invalid && (loginUsernameOrEmail.dirty || loginUsernameOrEmail.touched)"
+             class="validation-error-message">
+          <div *ngIf="loginUsernameOrEmail.errors.required">
+            Username or email is required
+          </div>
+          <div *ngIf="loginUsernameOrEmail.errors.minlength">
+            Username must be at least 4 characters long
+          </div>
+        </div>
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)}">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password"/>
+          <input type="password" placeholder="Password" formControlName="password" required/>
         </div>
-        <input type="submit" value="Login" class="btn solid"/>
+        <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)"
+             class="validation-error-message">
+          <div *ngIf="loginPassword.errors.required">
+            Password is required
+          </div>
+          <div *ngIf="loginPassword.errors.minlength">
+            Password must be at least 4 characters long
+          </div>
+          <div *ngIf="loginPassword.errors.maxlength">
+            Password must be not more then 30 characters long
+          </div>
+        </div>
+
+        <input type="submit" value="Login" class="btn solid" (click)="login()"/>
+
         <!--  <p class="social-text">Or using social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -23,25 +51,87 @@
             </a>
           </div>-->
       </form>
-      <form action="#" class="sign-up-form">
+
+      <form action="#" class="sign-up-form" [formGroup]="registerForm">
         <h2 class="title">Sign up</h2>
-        <div class="input-field">
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : registerUsername.invalid && (registerUsername.dirty || registerUsername.touched)}">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username"/>
+          <input type="text" placeholder="Username" formControlName="username">
         </div>
-        <div class="input-field">
+        <div *ngIf="registerUsername.invalid && (registerUsername.dirty || registerUsername.touched)"
+             class="validation-error-message">
+          <div *ngIf="registerUsername.errors.required">
+            Username is required
+          </div>
+          <div *ngIf="registerUsername.errors.minlength">
+            Username must be at least 4 characters long
+          </div>
+          <div *ngIf="registerUsername.errors.maxlength">
+            Username must be not more then 15 characters long
+          </div>
+          <div *ngIf="registerUsername.errors.usernameExists">
+            This username is already taken
+          </div>
+        </div>
+        <div class="validation-error-message">{{usernameOrEmailIsTaken}}</div>
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : registerEmail.invalid && (registerEmail.dirty || registerEmail.touched)}">
           <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="Email"/>
+          <input type="email" placeholder="Email" formControlName="email"/>
         </div>
-        <div class="input-field">
+        <div *ngIf="registerEmail.invalid && (registerEmail.dirty || registerEmail.touched)"
+             class="validation-error-message">
+          <div *ngIf="registerEmail.errors.required">
+            Email is required
+          </div>
+          <div *ngIf="registerEmail.errors.email">
+            Email is incorrect
+          </div>
+          <div *ngIf="registerEmail.errors.emailExists">
+            This email is already taken
+          </div>
+        </div>
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : registerPassword.invalid && (registerPassword.dirty || registerPassword.touched)}">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password"/>
+          <input type="password" placeholder="Password" formControlName="password"/>
         </div>
-        <div class="input-field">
+        <div *ngIf="registerPassword.invalid && (registerPassword.dirty || registerPassword.touched)"
+             class="validation-error-message">
+          <div *ngIf="registerPassword.errors.required">
+            Password is required
+          </div>
+          <div *ngIf="registerPassword.errors.minlength">
+            Password must be at least 4 characters long
+          </div>
+          <div *ngIf="registerPassword.errors.maxlength">
+            Password must be not more then 30 characters long
+          </div>
+        </div>
+
+        <div class="input-field"
+             [ngClass]="{'input-field-invalid' : registerConfirmPassword.invalid && (registerConfirmPassword.dirty || registerConfirmPassword.touched)}">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Confirm password"/>
+          <input type="password" placeholder="Confirm password" formControlName="confirmPassword"/>
         </div>
-        <input type="submit" class="btn" value="Sign up"/>
+        <div
+          *ngIf="registerConfirmPassword.invalid && (registerConfirmPassword.dirty || registerConfirmPassword.touched)"
+          class="validation-error-message">
+          <div *ngIf="registerConfirmPassword.errors.required">
+            Confirm password is required
+          </div>
+        </div>
+        <div class="validation-error-message"
+             *ngIf="registerConfirmPassword.valid && registerConfirmPassword.value != registerPassword.value">
+          Password and confirm password are mismatched
+        </div>
+
+        <input type="submit" class="btn" value="Sign up" (click)="register()"/>
+
         <!-- <p class="social-text">Or social platforms</p>
          <div class="social-media">
            <a href="#" class="social-icon">
@@ -60,9 +150,9 @@
       <div class="content">
         <h3>New here ?</h3>
         <p>
-          Lets begin your journey in project development world!
+          Let's begin your journey in the project development world!
         </p>
-        <button class="btn transparent" id="sign-up-btn" (click)="openSignUpButton()">
+        <button class="btn transparent" id="sign-up-btn" (click)="openSignUpTab()">
           Sign up
         </button>
       </div>
@@ -72,9 +162,9 @@
       <div class="content">
         <h3>One of us ?</h3>
         <p>
-          Lets begin your journey in project development world!
+          Let's begin your journey in the project development world!
         </p>
-        <button class="btn transparent" id="sign-in-btn" (click)="openSignInButton()">
+        <button class="btn transparent" id="sign-in-btn" (click)="openSignInTab()">
           Sign in
         </button>
       </div>
@@ -82,4 +172,3 @@
     </div>
   </div>
 </div>
-
