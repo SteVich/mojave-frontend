@@ -9,14 +9,19 @@ import {AuthService} from "./auth/auth.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {AuthGuard} from "./auth/auth.guard";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {TokenInterceptor} from "./common/interceptor/token.interceptor";
-import {ErrorInterceptor} from "./common/interceptor/error.interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import { NotifierComponent } from './common/notifier/notifier.component';
+import { NotifierComponent } from './common/components/notifier/notifier.component';
 import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {HeaderComponent} from './common/components/header/header.component';
+import {TokenInterceptor} from "./other/interceptors/token.interceptor";
+import {ErrorInterceptor} from "./other/interceptors/error.interceptor";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import { SideNavComponent } from './common/components/side-nav/side-nav.component';
+import { SideNavContentComponent } from './common/components/side-nav-content/side-nav-content.component';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,10 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     AuthComponent,
     MainComponent,
     NotifierComponent,
+    HeaderComponent,
+    SideNavComponent,
+    SideNavContentComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +43,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MatSnackBarModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DragDropModule
   ],
   providers: [
     AuthService,

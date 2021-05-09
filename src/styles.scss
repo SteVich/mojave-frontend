@@ -1,6 +1,8 @@
+
 :root {
   --error-message-color: #4b4848;
-  --main-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%)
+  --main-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  --text-color: #357bf6;
 }
 
 * {
@@ -14,14 +16,6 @@ button,
 input {
   font-family: "Poppins", sans-serif;
   letter-spacing: 0.15vh;
-}
-
-.container {
-  position: relative;
-  width: 100%;
-  background-color: #fff;
-  min-height: 100vh;
-  overflow: hidden;
 }
 
 .forms-container {
@@ -44,23 +38,3 @@ input {
   border-color: var(--error-message-color);
   border-style: solid;
 }
-
-.success-toast .toast-title {
-  text-align: center;
-}
-
-.success-toast .toast-content {
-  text-align: center;
-}
-
-.e-toast-container .e-toast {
-  background-color: #5169ef;
-  z-index:100;
-}
-
-.shadow {
-  background: rgba(102, 102, 102, 0.5);
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

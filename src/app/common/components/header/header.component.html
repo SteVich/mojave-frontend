@@ -1,0 +1,21 @@
+<div class="header">
+  <div class="menu-div">
+    <a class="menu-hamburger" (click)="toggleSideNav()">
+      <fa-icon [icon]="menuIcon" class="menu-icon"></fa-icon>
+    </a>
+  </div>
+  <div class="nav-div">
+    <nav>
+      <a (click)="gotoBoard()" [ngClass]="{'active': selectedNavItem == 1}">BOARD</a>
+      <a (click)="gotoTasks()" [ngClass]="{'active': selectedNavItem == 2}">CALENDAR</a>
+      <a (click)="gotoTeam()" [ngClass]="{'active': selectedNavItem == 3}">TEAM</a>
+      <a (click)="gotoTasks()" [ngClass]="{'active': selectedNavItem == 4}">WIKI</a>
+    </nav>
+  </div>
+  <div class="profile-div">
+    SteVi
+  </div>
+
+</div>
+
+

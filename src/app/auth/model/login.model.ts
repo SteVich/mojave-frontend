@@ -1,4 +1,4 @@
-import {Deserializable} from "../../common/model/deserializable.mode";
+import {Deserializable} from "../../common/models/deserializable.mode";
 
 export class Login implements Deserializable {
 

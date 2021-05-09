@@ -7,7 +7,7 @@ import {Token} from "./model/token.model";
 import {Registration} from "./model/registration.model";
 import {HttpClient} from "@angular/common/http";
 import {Login} from "./model/login.model";
-import {ApiResponse} from "../common/model/apiResponse.model";
+import {ApiResponse} from "../common/models/apiResponse.model";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

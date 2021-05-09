@@ -1,2 +1,11 @@
+<app-side-nav
+  [sidenavTemplateRef]="navContent"
+  [direction]="'left'"
+  [navWidth]="250"
+  [duration]="0.6"></app-side-nav>
 
 <router-outlet></router-outlet>
+
+<ng-template #navContent>
+  <app-side-nav-content></app-side-nav-content>
+</ng-template>

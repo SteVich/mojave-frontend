@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {NotifierComponent} from "../common/notifier/notifier.component";
+import {NotifierComponent} from "../common/components/notifier/notifier.component";
 
 @Injectable({
   providedIn: 'root'
