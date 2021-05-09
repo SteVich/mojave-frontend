@@ -43,6 +43,10 @@ export class AuthService {
     return this.http.post<Token>(environment.API_URL + '/auth/signin', loginObject, this.options);
   }
 
+  loginViaGoogle(): void {
+    window.open(environment.API_URL + '/google/login-with-google', '_self');
+  }
+
   doesEmailExists(email: string): Observable<boolean> {
     let options = {
       headers: {'Content-Type': 'application/json'},

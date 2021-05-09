@@ -41,15 +41,12 @@
 
         <input type="submit" value="Login" class="btn solid" (click)="login()"/>
 
-        <!--  <p class="social-text">Or using social platforms</p>
+          <p class="social-text">Or using google</p>
           <div class="social-media">
-            <a href="#" class="social-icon">
-              <i class="fab fa-google"></i>
+            <a class="social-icon" (click)="loginViaGoogle()">
+              <fa-icon [icon]="googleIcon"></fa-icon>
             </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-github"></i>
-            </a>
-          </div>-->
+          </div>
       </form>
 
       <form action="#" class="sign-up-form" [formGroup]="registerForm">

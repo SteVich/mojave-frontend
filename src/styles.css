@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-@import '../node_modules/@syncfusion/ej2-angular-notifications/styles/material.css';
-
 :root {
   --error-message-color: #4b4848;
   --main-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%)
@@ -25,6 +22,14 @@ input {
   background-color: #fff;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.forms-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .validation-error-message {

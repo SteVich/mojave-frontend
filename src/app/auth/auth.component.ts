@@ -6,8 +6,8 @@ import {Registration} from "./model/registration.model";
 import {Login} from "./model/login.model";
 import {Observable, of} from "rxjs";
 import {delay, map, switchMap} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {NotifierService} from "../service/notifier.service";
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 let passwordValidatorOpts = [
   Validators.required,
@@ -24,11 +24,23 @@ export class AuthComponent implements OnInit {
 
   openSignUp: boolean;
   usernameOrEmailIsTaken: string;
+  googleIcon = faGoogle
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private authService: AuthService,
               private notifierService: NotifierService) {
+    const accessToken = this.activatedRoute.snapshot.queryParams['accessToken'];
+    const refreshToken = this.activatedRoute.snapshot.queryParams['refreshToken'];
+    const userId = this.activatedRoute.snapshot.queryParams['userId'];
+
+    if (accessToken && refreshToken) {
+      this.authService.setUserTokens(accessToken, refreshToken, userId);
+    }
+
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['']);
+    }
   }
 
   registerForm = new FormGroup({
@@ -112,6 +124,9 @@ export class AuthComponent implements OnInit {
     return this.registerForm.get('confirmPassword');
   }
 
+  loginViaGoogle() {
+    this.authService.loginViaGoogle();
+  }
 
   login() {
     if (this.loginForm.valid) {
@@ -167,5 +182,4 @@ export class AuthComponent implements OnInit {
   opeSuccessRegistrationSnackBar() {
     this.notifierService.showNotification('Successfully registered!', 'success', 2000);
   }
-
 }
