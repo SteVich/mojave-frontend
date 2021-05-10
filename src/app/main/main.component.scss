@@ -1,23 +1,12 @@
 @import "/node_modules/bulma/bulma.sass";
 
 .board {
-  min-height: 94vh !important;
+  min-height: 94.8vh !important;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   min-width: 0;
   background: #F6F8F9;
-
-  .board-bar {
-    background: rgba(gray, 0.5);
-    padding: 8px 15px;
-
-    .board-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: white;
-    }
-  }
 
   .board-wrapper {
     display: flex;
@@ -35,8 +24,8 @@
         flex-basis: 0; // to force the columns to all be the same size, regardless of content
 
         min-width: 300px;
-        margin: 50px;
-        padding: 25px;
+        margin: 20px 30px 20px 30px;
+        padding: 10px 20px;
 
         border-radius: 4px;
 
@@ -47,11 +36,27 @@
         }
 
         .column-title {
-          font-size: 20px;
-          font-weight: 800;
-          font-family: 'Lato', sans-serif;
-          text-transform: uppercase;
+          font-size: 0.8em;
           margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+        }
+
+        .column-title-text {
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+
+        .column-title-settings-container {
+          display: flex;
+        }
+
+        .column-title-settings-container .icon {
+          margin-left: 15px;
+          font-weight: 100;
+          color: gray;
+          position: relative;
         }
       }
     }
@@ -60,25 +65,92 @@
 
 .tasks-container {
   flex-grow: 1;
-  overflow-y: auto;
 }
 
 .task {
   display: flex;
-  padding: 15px 12px;
+  flex-direction: column;
+  padding: 4px 12px;
   background: white;
   border-bottom: solid 1px #ddd;
-  border-radius: 4px;
-
+  border-radius: 6px;
+  font-size: 0.8rem;
   margin-bottom: 15px;
-
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
   0 3px 14px 2px rgba(0, 0, 0, 0.05);
+
+  .task-header {
+    overflow-y: visible !important;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .task-type {
+      flex: 0.15;
+      background: #04befe;
+      width: 2rem;
+      height: 5px;
+      border-radius: 40px;
+    }
+
+    .task-actions {
+
+    }
+
+
+  }
+
+  .task-body {
+    textarea:hover {
+      cursor: pointer;
+    }
+  }
+
+  .task-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    align-items: center;
+
+    .task-number {
+      flex: 0.21;
+    }
+
+    .task-estimate {
+      position: relative;
+      flex: 0.89;
+
+      .task-estimate-value {
+        padding-left: 5px;
+      }
+    }
+
+    .task-assigned-for {
+
+
+      .task-assigned-for-icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 50%;
+        background-color: blue;
+        color: white;
+        font-size: 0.6rem;
+        font-weight: 600;
+        padding-top: 6px;
+      }
+    }
+  }
+
 }
 
 .cdk-drag-preview {
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0 8px 10px 1px rgba(0, 0, 0, 0.14),
   0 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -94,4 +166,12 @@
 
 .tasks-container.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+fa-icon:hover {
+  color: var(--main-color) !important;
 }

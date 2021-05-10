@@ -1,8 +1,8 @@
 
 :root {
   --error-message-color: #4b4848;
-  --main-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
-  --text-color: #357bf6;
+  --main-theme-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  --main-color: #308ee0;
 }
 
 * {
@@ -37,4 +37,61 @@ input {
 .input-field-invalid {
   border-color: var(--error-message-color);
   border-style: solid;
+}
+
+.icon {
+  .tooltip {
+    position: absolute;
+    top: 10%;
+    margin-top: 1px;
+    padding: .55rem 1rem;
+    font-size: 0.55rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #fff;
+    border-radius: 50px;
+    background-color: #494848;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.07);
+
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover {
+    .tooltip {
+      top: 100%;
+      opacity: 1;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  height: 0.6rem;
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #e5eaf5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+
+textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+  width: 100%;
+  min-height: 2rem;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }

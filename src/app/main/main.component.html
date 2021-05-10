@@ -4,19 +4,63 @@
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
         <div class="board-column" *ngFor="let column of board.columns">
+
           <div class="column-title">
-            {{ column.name }}
+            <div class="column-title-text">
+              {{ column.name }}
+            </div>
+            <div class="column-title-settings-container">
+              <div class="icon">
+                <fa-icon [icon]="plusIcon"></fa-icon>
+                <span class="tooltip">Add task</span>
+              </div>
+              <div class="icon">
+                <fa-icon [icon]="moreIcon"></fa-icon>
+                <span class="tooltip">More Actions</span>
+              </div>
+            </div>
           </div>
 
+
           <div class="tasks-container"
-               cdkDropList
-               [cdkDropListData]="column.tasks"
+               cdkDropList [cdkDropListData]="column.tasks"
                (cdkDropListDropped)="drop($event)">
             <div class="task" *ngFor="let item of column.tasks" cdkDrag>
-              {{ item }}
+
+              <div class="task-header">
+                <div class="task-type">
+                </div>
+                <div class="task-actions">
+                  <div class="icon">
+                    <fa-icon [icon]="moreIcon"></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div class="task-body">
+                <textarea readonly>{{ item }}</textarea>
+              </div>
+              <div class="task-footer">
+                <div class="task-number">
+                  #5443
+                </div>
+                <div class="task-estimate">
+                  <div class="icon">
+                    <fa-icon [icon]="estimatesIcon"></fa-icon>
+                    <span class="tooltip">Estimates</span>
+                    <span class="task-estimate-value">16</span>
+                  </div>
+                </div>
+                <div class="task-assigned-for">
+                  <div class="task-assigned-for-icon">
+                    <span>SV</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

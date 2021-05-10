@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Board} from "./models/board.model";
 import {Column} from "./models/column.model";
+import {faClock, faEllipsisH, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {fa} from "@fortawesome/fontawesome-free";
+
 
 @Component({
   selector: 'app-main-view',
@@ -9,6 +12,10 @@ import {Column} from "./models/column.model";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
+  plusIcon = faPlus;
+  moreIcon = faEllipsisH
+  estimatesIcon = faClock
 
   constructor() {
   }
@@ -46,10 +53,12 @@ export class MainComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
+      transferArrayItem(
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex
+      );
     }
   }
 
