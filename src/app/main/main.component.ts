@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Board} from "./models/board.model";
 import {Column} from "./models/column.model";
-import {faClock, faEllipsisH, faPlus} from "@fortawesome/free-solid-svg-icons";
-import {fa} from "@fortawesome/fontawesome-free";
+import {TaskEditorService} from "../service/task-editor.service";
 
 
 @Component({
@@ -13,18 +12,14 @@ import {fa} from "@fortawesome/fontawesome-free";
 })
 export class MainComponent implements OnInit {
 
-  plusIcon = faPlus;
-  moreIcon = faEllipsisH
-  estimatesIcon = faClock
-
-  constructor() {
+  constructor(private taskEditorService: TaskEditorService) {
   }
 
   board: Board = new Board('Test Board', [
     new Column('Ideas', [
       "Some random idea",
       "This is another random idea",
-      "build an awesome application"
+      "build an awesome application multi test"
     ]),
     new Column('Research', [
       "Lorem ipsum",
@@ -62,5 +57,8 @@ export class MainComponent implements OnInit {
     }
   }
 
-
+  addTaskFromDiv() {
+    this.board.columns[0].tasks.push('')
+    this.taskEditorService.setShowEditor(true);
+  }
 }

@@ -1,12 +1,13 @@
 @import "/node_modules/bulma/bulma.sass";
 
 .board {
-  min-height: 94.8vh !important;
+  padding-top: 2.56rem;
+  min-height: 100vh !important;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   min-width: 0;
-  background: #F6F8F9;
+  background: var(--main-background-color);
 
   .board-wrapper {
     display: flex;
@@ -21,7 +22,7 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        flex-basis: 0; // to force the columns to all be the same size, regardless of content
+        flex-basis: 0;
 
         min-width: 300px;
         margin: 20px 30px 20px 30px;
@@ -61,6 +62,14 @@
       }
     }
   }
+
+  svg {
+    cursor: pointer;
+  }
+
+  svg:hover {
+    color: var(--main-color) !important;
+  }
 }
 
 .tasks-container {
@@ -74,6 +83,7 @@
   background: white;
   border-bottom: solid 1px #ddd;
   border-radius: 6px;
+  cursor: pointer;
   font-size: 0.8rem;
   margin-bottom: 15px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
@@ -99,13 +109,18 @@
 
     }
 
+    svg {
+      cursor: pointer;
+    }
 
+    svg:hover {
+      color: var(--main-color) !important;
+    }
   }
 
   .task-body {
-    textarea:hover {
-      cursor: pointer;
-    }
+    flex-basis: auto !important;
+    min-height: 2rem;
   }
 
   .task-footer {
@@ -122,17 +137,16 @@
     .task-estimate {
       position: relative;
       flex: 0.89;
+      padding-left: 10px;
 
       .task-estimate-value {
-        padding-left: 5px;
+        padding-left: 3px;
       }
     }
 
     .task-assigned-for {
-
-
       .task-assigned-for-icon {
-        width: 1.6rem;
+        width: 1.65rem;
         height: 1.6rem;
         text-align: center;
         vertical-align: middle;
@@ -145,7 +159,31 @@
       }
     }
   }
+}
 
+.add-task {
+  text-align: center;
+  height: 2rem;
+  padding-top: 6px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.8rem;
+
+  span {
+    margin-left: 5px;
+  }
+
+  svg {
+    font-size: 0.6rem;
+  }
+
+  svg:hover {
+    color: var(--error-message-color) !important;
+  }
+}
+
+.add-task:hover {
+  background-color: #d7dbdc;
 }
 
 .cdk-drag-preview {
@@ -166,12 +204,4 @@
 
 .tasks-container.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-fa-icon {
-  cursor: pointer;
-}
-
-fa-icon:hover {
-  color: var(--main-color) !important;
 }

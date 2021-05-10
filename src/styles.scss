@@ -3,6 +3,8 @@
   --error-message-color: #4b4848;
   --main-theme-color: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
   --main-color: #308ee0;
+  --main-background-color: #F6F8F9;
+  --second-background-color: #F0F4F5;
 }
 
 * {
@@ -42,8 +44,7 @@ input {
 .icon {
   .tooltip {
     position: absolute;
-    top: 10%;
-    margin-top: 1px;
+    top: 50%;
     padding: .55rem 1rem;
     font-size: 0.55rem;
     font-weight: 600;
@@ -82,16 +83,4 @@ input {
 
 ::-webkit-scrollbar-thumb {
   background: var(--main-color);
-}
-
-textarea {
-  border: none;
-  overflow: auto;
-  outline: none;
-  box-shadow: none;
-  resize: none;
-  width: 100%;
-  min-height: 2rem;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
 }

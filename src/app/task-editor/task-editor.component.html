@@ -1,0 +1,50 @@
+<div class="main-container"
+     [ngClass]="{ 'task-editor-collapsed': !(showEditor | async) }">
+
+  <div class="task-editor-overlay"
+       [ngClass]="{ 'task-editor-overlay-collapsed': !(showEditor | async) }"
+       (click)="onEditorClose()"></div>
+
+  <div class="task-editor-container"
+       [ngStyle]="getEditorStyle((showEditor | async))">
+
+    <div class="task-editor-content-container">
+      <div class="editor-actions">
+        <div class="icon">
+          <i class="fas fa-check"></i>
+          <span class="tooltip">Save</span>
+        </div>
+        <div class="icon">
+          <i class="fas fa-trash"></i>
+          <span class="tooltip">Delete</span>
+        </div>
+        <i class="fas fa-arrow-right"></i>
+      </div>
+      <div class="editor-content-container">
+          <textarea class="task-title-input" id="task-title-input" (keyup)="textAreaAutoGrow()">New task
+          </textarea>
+        <div class="editor-additional-content-container">
+          <div class="names-container">
+            <div class="btm">Assignee</div>
+            <div class="btm">Estimate</div>
+            <div class="btm">Tags</div>
+            <div class="btm">Story</div>
+            <div class="btm">Priority</div>
+            <div class="btm">Description</div>
+          </div>
+          <div class="values-container">
+            <div class="btm">Assignee</div>
+            <div class="btm">Assignee</div>
+            <div class="btm">Assignee</div>
+            <div class="btm">Assignee</div>
+            <div class="btm">Assignee</div>
+            <div class="btm">Assignee</div>
+          </div>
+        </div>
+      </div>
+      <div class="editor-footer">
+        Footer
+      </div>
+    </div>
+  </div>
+</div>

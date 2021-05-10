@@ -59,8 +59,10 @@ form.sign-in-form {
   position: relative;
 }
 
-.input-field i {
+.input-field svg {
   text-align: center;
+  display: block;
+  margin: auto;
   line-height: 55px;
   color: #acacac;
   transition: 0.5s;
@@ -210,6 +212,10 @@ form.sign-in-form {
 
 .btn.transparent:hover {
   background-color: #4580e5;
+}
+
+#username {
+  margin-bottom: 0;
 }
 
 .right-panel .image,

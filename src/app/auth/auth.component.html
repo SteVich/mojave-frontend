@@ -52,7 +52,7 @@
       <form action="#" class="sign-up-form" [formGroup]="registerForm">
         <h2 class="title">Sign up</h2>
 
-        <div class="input-field"
+        <div class="input-field" id="username"
              [ngClass]="{'input-field-invalid' : registerUsername.invalid && (registerUsername.dirty || registerUsername.touched)}">
           <i class="fas fa-user"></i>
           <input type="text" placeholder="Username" formControlName="username">

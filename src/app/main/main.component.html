@@ -1,6 +1,18 @@
+<app-task-editor></app-task-editor>
+
 <app-header></app-header>
 
-  <div class="board">
+<app-side-nav
+  [sidenavTemplateRef]="navContent"
+  [direction]="'left'"
+  [navWidth]="250"
+  [duration]="0.6"></app-side-nav>
+
+<ng-template #navContent>
+  <app-side-nav-content></app-side-nav-content>
+</ng-template>
+
+<div class="board">
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
         <div class="board-column" *ngFor="let column of board.columns">
@@ -10,34 +22,32 @@
               {{ column.name }}
             </div>
             <div class="column-title-settings-container">
-              <div class="icon">
-                <fa-icon [icon]="plusIcon"></fa-icon>
-                <span class="tooltip">Add task</span>
+              <div class="icon" *ngIf="board.columns[0] == column">
+                <i class="fas fa-plus"></i>
+                <span class="tooltip" >Add task</span>
               </div>
               <div class="icon">
-                <fa-icon [icon]="moreIcon"></fa-icon>
+                <i class="fas fa-ellipsis-h"></i>
                 <span class="tooltip">More Actions</span>
               </div>
             </div>
           </div>
 
-
           <div class="tasks-container"
                cdkDropList [cdkDropListData]="column.tasks"
                (cdkDropListDropped)="drop($event)">
             <div class="task" *ngFor="let item of column.tasks" cdkDrag>
-
               <div class="task-header">
                 <div class="task-type">
                 </div>
                 <div class="task-actions">
                   <div class="icon">
-                    <fa-icon [icon]="moreIcon"></fa-icon>
+                    <i class="fas fa-ellipsis-h"></i>
                   </div>
                 </div>
               </div>
               <div class="task-body">
-                <textarea readonly>{{ item }}</textarea>
+                {{ item }}
               </div>
               <div class="task-footer">
                 <div class="task-number">
@@ -45,8 +55,8 @@
                 </div>
                 <div class="task-estimate">
                   <div class="icon">
-                    <fa-icon [icon]="estimatesIcon"></fa-icon>
-                    <span class="tooltip">Estimates</span>
+                    <i class="far fa-clock"></i>
+                    <span class="tooltip">Estimated</span>
                     <span class="task-estimate-value">16</span>
                   </div>
                 </div>
@@ -56,11 +66,13 @@
                   </div>
                 </div>
               </div>
+            </div>
 
+            <div class="add-task" *ngIf="board.columns[0] == column" (click)="addTaskFromDiv()">
+              <i class="fas fa-plus"></i>
+              <span>Add task</span>
             </div>
           </div>
-        </div>
-
       </div>
     </div>
   </div>

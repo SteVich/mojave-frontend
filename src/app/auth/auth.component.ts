@@ -8,6 +8,7 @@ import {Observable, of} from "rxjs";
 import {delay, map, switchMap} from "rxjs/operators";
 import {NotifierService} from "../service/notifier.service";
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import {faUser} from "@fortawesome/free-solid-svg-icons";
 
 let passwordValidatorOpts = [
   Validators.required,
@@ -25,6 +26,7 @@ export class AuthComponent implements OnInit {
   openSignUp: boolean;
   usernameOrEmailIsTaken: string;
   googleIcon = faGoogle
+  userIcon = faUser
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,

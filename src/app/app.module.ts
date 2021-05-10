@@ -22,6 +22,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import { SideNavComponent } from './common/components/side-nav/side-nav.component';
 import { SideNavContentComponent } from './common/components/side-nav-content/side-nav-content.component';
 import { TeamComponent } from './team/team.component';
+import { TaskEditorComponent } from './task-editor/task-editor.component';
+import {AutosizeModule} from "ngx-autosize";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { TeamComponent } from './team/team.component';
     SideNavComponent,
     SideNavContentComponent,
     TeamComponent,
+    TaskEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { TeamComponent } from './team/team.component';
     BrowserAnimationsModule,
     MatButtonModule,
     FontAwesomeModule,
-    DragDropModule
+    DragDropModule,
+    AutosizeModule
   ],
   providers: [
     AuthService,
