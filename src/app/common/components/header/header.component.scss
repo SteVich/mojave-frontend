@@ -27,10 +27,6 @@ nav a:hover {
   border-bottom: solid 4px gray;
 }
 
-a:hover {
-  color: var(--main-color);
-}
-
 nav {
   font-size: 0.9rem;
   position: absolute;
@@ -69,6 +65,11 @@ nav a:hover:before, nav a:hover:after {
   align-items: center;
   display: flex;
   color: var(--error-message-color);
+
+  &:hover {
+    color: var(--main-color);
+    background-color: #e0e0e0;
+  }
 }
 
 .profile-div {

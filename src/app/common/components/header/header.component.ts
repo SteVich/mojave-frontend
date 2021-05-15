@@ -45,6 +45,10 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSideNav() {
-    this.navService.setShowNav(true);
+    if (this.navService.isNavOpen()) {
+      this.navService.setShowNav(false);
+    } else {
+      this.navService.setShowNav(true);
+    }
   }
 }

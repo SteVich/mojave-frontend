@@ -3,6 +3,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import {Board} from "./models/board.model";
 import {Column} from "./models/column.model";
 import {TaskEditorService} from "../service/task-editor.service";
+import {Task} from "./models/task.model";
+import {BoardService} from "../service/board.service";
 
 
 @Component({
@@ -12,39 +14,21 @@ import {TaskEditorService} from "../service/task-editor.service";
 })
 export class MainComponent implements OnInit {
 
-  constructor(private taskEditorService: TaskEditorService) {
+  board: Board;
+  isColumnTitleEditableMap: Map<number, boolean> = new Map();
+
+  constructor(private taskEditorService: TaskEditorService,
+              private boardService: BoardService) {
   }
 
-  board: Board = new Board('Test Board', [
-    new Column('Ideas', [
-      "Some random idea",
-      "This is another random idea",
-      "build an awesome application multi test"
-    ]),
-    new Column('Research', [
-      "Lorem ipsum",
-      "foo",
-      "This was in the 'Research' column"
-    ]),
-    new Column('Todo', [
-      'Get to work',
-      'Pick up groceries',
-      'Go home',
-      'Fall asleep'
-    ]),
-    new Column('Done', [
-      'Get up',
-      'Brush teeth',
-      'Take a shower',
-      'Check e-mail',
-      'Walk dog'
-    ])
-  ]);
 
   ngOnInit() {
+    this.boardService.getDefaultBoard().subscribe((board) => {
+      this.board = board;
+    });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -57,8 +41,37 @@ export class MainComponent implements OnInit {
     }
   }
 
-  addTaskFromDiv() {
-    this.board.columns[0].tasks.push('')
+  openAddTaskEditor() {
     this.taskEditorService.setShowEditor(true);
+  }
+
+  openEditTaskEditor(task: Task) {
+    this.taskEditorService.setTaskDataToEdit(task);
+    this.taskEditorService.setShowEditor(true);
+  }
+
+  public setTaskInfo(task: Task) {
+    this.board.columns[0].tasks.push(task)
+  }
+
+  addColumn() {
+    this.board.columns.push(new Column(4, "New section", []))
+  }
+
+  makeColumnTitleEditable(id: number) {
+    this.isColumnTitleEditableMap.set(id, true);
+  }
+
+  makeColumnTitleNotEditable(id: number) {
+    setTimeout(() => {
+      this.isColumnTitleEditableMap.set(id, false);
+    }, 300)
+  }
+
+  saveTitle(id, value: string) {
+    this.board.columns[id - 1].name = value;
+    setTimeout(() => {
+      this.isColumnTitleEditableMap.set(id, false);
+    }, 300)
   }
 }

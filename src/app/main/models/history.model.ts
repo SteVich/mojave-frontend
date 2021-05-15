@@ -1,13 +1,15 @@
 import {Deserializable} from "../../common/models/deserializable.model";
+import {User} from "../../common/models/user.model";
 
-export class Login implements Deserializable {
+export class History implements Deserializable {
 
-  usernameOrEmail: string;
-  password: string;
+  id: number;
+  user: User;
+  message: string;
+  date: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);
     return this;
   }
 }
-
