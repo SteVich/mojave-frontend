@@ -71,7 +71,7 @@ export class AuthService {
 
   logout(): void {
     this.removeAuthorization();
-    this.router.navigate(['']);
+    this.router.navigate(['/auth']);
   }
 
   removeAuthorization(): void {

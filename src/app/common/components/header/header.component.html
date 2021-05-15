@@ -13,7 +13,17 @@
     </nav>
   </div>
   <div class="profile-div">
-    SteVi
+    <div class="profile-name" mat-ripple [matMenuTriggerFor]="actionsMenu">{{username}}</div>
+    <mat-menu #actionsMenu="matMenu">
+      <button mat-menu-item mat-ripple>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile settings</span>
+      </button>
+      <button mat-menu-item (click)="logout()" mat-ripple>
+        <mat-icon>logout</mat-icon>
+        <span>Log out</span>
+      </button>
+    </mat-menu>
   </div>
 
 </div>

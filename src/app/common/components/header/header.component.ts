@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 import {NavigationService} from "../../services/navigation.service";
+import {UserService} from "../../../service/user.service";
+import {AuthService} from "../../../auth/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -12,8 +14,12 @@ export class HeaderComponent implements OnInit {
 
   menuIcon = faBars
   selectedNavItem: number = 1
+  username: string
 
-  constructor(private router: Router, private navService: NavigationService) {
+  constructor(private router: Router,
+              private navService: NavigationService,
+              private userService: UserService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +30,10 @@ export class HeaderComponent implements OnInit {
     } else if (this.router.url == 'team') {
       this.selectedNavItem = 3;
     }
+
+    this.userService.getCurrentUser().subscribe(user => {
+      this.username = user.username;
+    })
   }
 
   gotoBoard() {
@@ -50,5 +60,9 @@ export class HeaderComponent implements OnInit {
     } else {
       this.navService.setShowNav(true);
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

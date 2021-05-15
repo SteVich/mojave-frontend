@@ -73,17 +73,25 @@ nav a:hover:before, nav a:hover:after {
 }
 
 .profile-div {
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   display: flex;
-  width: 13%;
+  width: 10%;
   color: #949494;
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
-  padding: 6px 20px;
+  padding: 0.1rem 1rem;
   transition: 0.2s ease color;
-  margin-right: 1rem;
+
+  .profile-name {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+
 }
 
 .active {
