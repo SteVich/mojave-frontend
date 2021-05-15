@@ -19,8 +19,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
       request = request.clone({
         setHeaders: {
-          'access-token': accessToken,
-          'refresh-token': refreshToken
+          'Authorization': accessToken,
+          'RefreshToken': refreshToken
         }
       });
     }

@@ -3,12 +3,8 @@ import {Deserializable} from "../../common/models/deserializable.model";
 export class Assignee implements Deserializable {
 
   id: number;
-  name: string;
-
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-  }
+  username: string;
+  email: string
 
   deserialize(input: any): this {
     Object.assign(this, input);

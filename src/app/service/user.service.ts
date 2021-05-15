@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../common/models/user.model";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -11,6 +12,6 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    return of(new User(1, "SteVi"));
+    return this.http.get<User>(environment.API_URL + '/user/current');
   }
 }

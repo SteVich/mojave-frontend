@@ -1,8 +1,8 @@
-import {Component, Injectable, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Observable} from "rxjs";
 import {SideNavDirection} from "../common/components/side-nav/side-nav-direction";
 import {TaskEditorService} from "../service/task-editor.service";
-import {Form, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {TaskService} from "../service/task.service";
 import {Assignee} from "../main/models/assignee.model";
 import {Milestone} from "../main/models/milestone.model";
@@ -30,6 +30,8 @@ export class TaskEditorComponent implements OnInit {
 
   tags: Tag[];
   selectedTag: number;
+
+  taskId: number;
 
   form: FormGroup;
 
@@ -61,23 +63,32 @@ export class TaskEditorComponent implements OnInit {
       this.assignees = items;
     })
 
-    this.taskService.getMilestones().subscribe(items => {
+    this.taskService.getMilestones(1).subscribe(items => {
       this.milestones = items;
     })
 
-    this.taskService.getTags().subscribe(items => {
+    this.taskService.getTags(1).subscribe(items => {
       this.tags = items;
     })
 
     this.editorService.getTaskDataToEdit().subscribe((task) => {
-      this.form.get('title').setValue(task.title);
-      this.form.get('assignee').setValue(task.assignee);
-      this.form.get('milestone').setValue(task.milestone);
-      this.form.get('dueDate').setValue(task.dueDate);
-      this.form.get('estimate').setValue(task.dueDate);
-      this.form.get('priority').setValue(task.dueDate);
-      this.form.get('tag').setValue(task.dueDate);
-      this.form.get('description').setValue(task.dueDate);
+      if (task) {
+        console.log(task)
+        let title = task.title;
+        if (!title) {
+          title = "New task"
+        }
+        this.form.get('title').setValue(title);
+        this.form.get('assignee').setValue(task.assignee.id);
+        this.form.get('dueDate').setValue(task.dueDate);
+        this.form.get('tag').setValue(task.tag.id);
+        this.form.get('estimate').setValue(task.estimate);
+        this.form.get('milestone').setValue(task.milestone.id);
+        this.form.get('priority').setValue(task.priority);
+        this.form.get('description').setValue(task.description);
+        this.selectedPriority = task.priority;
+        this.taskId = task.id;
+      }
     })
   }
 
@@ -125,7 +136,7 @@ export class TaskEditorComponent implements OnInit {
 
   onEditorClose() {
     this.editorService.setShowEditor(false);
-    this.form.reset();
+    this.resetForm();
   }
 
   textAreaAutoGrow() {
@@ -138,16 +149,28 @@ export class TaskEditorComponent implements OnInit {
   save() {
     if (this.form.valid) {
       let task = new Task().deserialize(this.form.value)
-
+      console.log(task)
       this.mainComponent.setTaskInfo(task);
       this.onEditorClose();
-      this.form.reset();
+      this.resetForm();
 
-      this.taskService.create(task).subscribe(() => {
-        // todo: save in db
-      })
+      if (this.taskId) {
+        this.taskService.edit(this.taskId, task, 1).subscribe(() => {
+          // todo: save in db
+        })
+      } else {
+        this.taskService.create(task, 1).subscribe(() => {
+          // todo: save in db
+        })
+      }
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  private resetForm() {
+    this.form.reset();
+    this.form.get('title').setValue("New task");
+    this.taskId = null;
   }
 }

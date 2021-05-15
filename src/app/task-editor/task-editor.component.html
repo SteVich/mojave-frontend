@@ -29,7 +29,7 @@
       <form class="editor-content-container" [formGroup]="form">
         <textarea class="task-title-input"
                   id="task-title-input" formControlName="title"
-                  [ngClass]="{'input-field-invalid' : title.invalid && (title.dirty || title.touched)}">
+                  [ngClass]="{'input-field-invalid' : title.invalid && (title.dirty || title.touched)}"
                   (keyup)="textAreaAutoGrow()" required></textarea>
         <div *ngIf="title.invalid && (title.dirty || title.touched)"
              class="validation-error-message">
@@ -60,7 +60,7 @@
               <mat-form-field appearance="outline">
                 <mat-select [(value)]='selectedAssignee' formControlName="assignee">
                   <mat-option *ngFor="let assignee of assignees" [value]="assignee.id">
-                    {{assignee.name}}
+                    {{assignee.username}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

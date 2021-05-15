@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {Assignee} from "../main/models/assignee.model";
 import {Milestone} from "../main/models/milestone.model";
@@ -23,19 +23,22 @@ export class TaskService implements OnInit {
   }
 
   getAssignees(): Observable<Assignee[]> {
-    return of([new Assignee(1, "Ste Vi"), new Assignee(2, "Ilon")]);
+    return this.http.get<Assignee[]>(environment.API_URL + '/user'); // todo: rewrite it later on team members
   }
 
-  getMilestones(): Observable<Milestone[]> {
-    return of([new Milestone(1, "April"), new Milestone(2, "May")]);
+  getMilestones(projectId: number): Observable<Milestone[]> {
+    return this.http.get<Milestone[]>(environment.API_URL + '/project/' + projectId + '/milestone');
   }
 
-  getTags(): Observable<Tag[]> {
-    return of([new Tag(1, "Story"), new Tag(2, "Bug")]);
+  getTags(projectId: number): Observable<Tag[]> {
+    return this.http.get<Tag[]>(environment.API_URL + '/project/' + projectId + '/tag');
   }
 
-  create(task: Task): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(environment.API_URL + '/task', task, this.options);
+  create(task: Task, columnId: number): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task', task, this.options);
   }
 
+  edit(taskId: number, task: Task, columnId: number): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task/' + taskId, task, this.options);
+  }
 }

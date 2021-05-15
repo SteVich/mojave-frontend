@@ -1,20 +1,21 @@
 import {Milestone} from "./milestone.model";
 import {Assignee} from "./assignee.model";
 import {Deserializable} from "../../common/models/deserializable.model";
+import {Tag} from "./tag.model";
 
 export class Task implements Deserializable {
 
   id: number;
   title: string;
-  assignee: Assignee;
+  assignee: Assignee = new Assignee();
   dueDate: string;
-  milestone: Milestone;
+  milestone: Milestone = new Milestone();
   priority: string;
-  tag: string;
+  tag: Tag = new Tag();
   estimate: number;
   description: string;
   number: number;
-  history: History;
+  histories: History[];
 
   deserialize(input: any): this {
     Object.assign(this, input);

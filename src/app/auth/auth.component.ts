@@ -26,7 +26,6 @@ export class AuthComponent implements OnInit {
   openSignUp: boolean;
   usernameOrEmailIsTaken: string;
   googleIcon = faGoogle
-  userIcon = faUser
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,

@@ -21,11 +21,13 @@ export class MainComponent implements OnInit {
               private boardService: BoardService) {
   }
 
-
   ngOnInit() {
-    this.boardService.getDefaultBoard().subscribe((board) => {
+    let projectId = 1;
+    this.boardService.getDefaultForProject(projectId).subscribe((board) => {
       this.board = board;
-    });
+    }, (error => {
+      console.log(error)
+    }));
   }
 
   drop(event: CdkDragDrop<Task[]>) {

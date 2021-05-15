@@ -1,10 +1,12 @@
-export class Tag {
+import {Deserializable} from "../../common/models/deserializable.model";
 
-  id: number;
-  name: string;
+export class Tag implements Deserializable {
 
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
+  id?: number;
+  name?: string;
+
+  deserialize(input: any): this {
+    Object.assign(this, input);
+    return this;
   }
 }
