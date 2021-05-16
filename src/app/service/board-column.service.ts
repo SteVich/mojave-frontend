@@ -26,6 +26,10 @@ export class BoardColumnService implements OnInit {
       {}, {params: {'newColumnName': newColumnName}});
   }
 
+  changePositionsInBoard(ids: number[], boardId: number): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/board/' + boardId + '/column/update-positions', ids);
+  }
+
   delete(columnId: number, boardId: number): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(environment.API_URL + '/project/board/' + boardId + '/column/' + columnId);
   }

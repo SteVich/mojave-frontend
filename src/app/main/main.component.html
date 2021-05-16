@@ -20,7 +20,7 @@
             <div class="column-title-text">
               <mat-form-field appearance="outline" *ngIf="isColumnTitleEditableMap.get(column.id) == true">
                 <input matInput value="{{ column.name }}"
-                       (keyup.enter)="saveColumnName(column.id, $event.target.value)"
+                       (keyup.enter)="saveColumnName(column.id, columnIndex, $event.target.value)"
                        (mouseleave)="makeColumnTitleNotEditable(column.id)">
               </mat-form-field>
               <span *ngIf="!isColumnTitleEditableMap.get(column.id)
@@ -41,11 +41,19 @@
               <mat-menu #actionsMenu="matMenu">
                 <button mat-menu-item (click)="makeColumnTitleEditable(column.id)">
                   <mat-icon>edit</mat-icon>
-                  <span>Rename section</span>
+                  <span>Rename</span>
+                </button>
+                <button mat-menu-item (click)="moveColumnRight(columnIndex)">
+                  <mat-icon>arrow_forward_ios</mat-icon>
+                  <span>Move right</span>
+                </button>
+                <button mat-menu-item (click)="moveColumnLeft(columnIndex)">
+                  <mat-icon>arrow_back_ios_new</mat-icon>
+                  <span>Move left</span>
                 </button>
                 <button mat-menu-item (click)="deleteColumn(column.id, columnIndex, board.id)">
                   <mat-icon>delete</mat-icon>
-                  <span>Delete section</span>
+                  <span>Delete</span>
                 </button>
               </mat-menu>
             </div>
@@ -63,6 +71,10 @@
                     <i class="fas fa-ellipsis-h"></i>
                   </div>
                   <mat-menu #taskActionsMenu="matMenu">
+                    <button mat-menu-item matRipple (click)="duplicateTask(task.id, taskIndex, column.id)">
+                      <mat-icon>control_point_duplicate</mat-icon>
+                      <span>Duplicate</span>
+                    </button>
                     <button mat-menu-item matRipple (click)="deleteTask(task.id, taskIndex, column.id)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete</span>
@@ -70,10 +82,10 @@
                   </mat-menu>
                 </div>
               </div>
-              <div class="task-body" (click)="openEditTaskEditor(task)">
+              <div class="task-body" (click)="openEditTaskEditor(task,columnIndex)">
                 {{task.title}}
               </div>
-              <div class="task-footer" (click)="openEditTaskEditor(task)">
+              <div class="task-footer" (click)="openEditTaskEditor(task, columnIndex)">
                 <div class="task-number">
                   #{{task.id}}
                 </div>

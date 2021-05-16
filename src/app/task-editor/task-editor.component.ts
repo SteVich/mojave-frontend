@@ -94,7 +94,7 @@ export class TaskEditorComponent implements OnInit {
 
         this.histories = task.histories;
         if (this.histories != undefined) {
-          this.histories.sort((a, b) => a.date.localeCompare(b.date));
+          this.histories.sort((a, b) => b.date.localeCompare(a.date));
         }
       }
     })

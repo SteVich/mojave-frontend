@@ -69,9 +69,12 @@ export class MainComponent implements OnInit {
     this.taskEditorService.setShowEditor(true);
   }
 
-  openEditTaskEditor(task: Task) {
+  private editColumnIndex: number;
+
+  openEditTaskEditor(task: Task, columnIndex: number) {
     this.taskEditorService.setTaskDataToEdit(task);
     this.taskEditorService.setShowEditor(true);
+    this.editColumnIndex = columnIndex;
   }
 
   public createAndShowNewTask(task: Task) {
@@ -84,9 +87,9 @@ export class MainComponent implements OnInit {
 
   public updateExistingTask(updatedTask: Task) {
     console.log(updatedTask)
-    this.board.columns[0].tasks.map((task, i) => {
+    this.board.columns[this.editColumnIndex].tasks.map((task, i) => {
       if (task.id == updatedTask.id) {
-        this.board.columns[0].tasks[i] = updatedTask;
+        this.board.columns[this.editColumnIndex].tasks[i] = updatedTask;
       }
     });
   }
@@ -99,7 +102,7 @@ export class MainComponent implements OnInit {
           this.board.columns.push(new Column(columnId, defaultNewColumnName, []))
         })
     } else {
-      this.notifierService.showErrorNotification('You can\'t create more than 12 sections per board!', 5000);
+      this.notifierService.showErrorNotification("You can't create more than 12 sections per board!", 5000);
       this.isAddNewSectionHidden = true;
     }
   }
@@ -114,8 +117,8 @@ export class MainComponent implements OnInit {
     }, 300)
   }
 
-  saveColumnName(id, value: string) {
-    let thisColumn = this.board.columns[id - 1];
+  saveColumnName(id, columnIndex: number, value: string) {
+    let thisColumn = this.board.columns[columnIndex];
     thisColumn.name = value;
 
     this.boardColumnService.updateColumnName(1, thisColumn.id, value)
@@ -127,7 +130,6 @@ export class MainComponent implements OnInit {
   }
 
   deleteTask(taskId: number, taskIndex: number, columnId: number) {
-    console.log(taskIndex)
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '400px',
       data: "Are you sure you want to delete this task?"
@@ -142,6 +144,26 @@ export class MainComponent implements OnInit {
               }
             });
             this.notifierService.showSuccessNotification(response.message, 2000);
+          })
+      }
+    });
+  }
+
+  duplicateTask(taskId: number, taskIndex: number, columnId: number) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '400px',
+      data: "Are you sure you want to duplicate this task?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.duplicate(taskId, columnId, 1)
+          .subscribe((duplicatedTask) => {
+            this.board.columns.forEach((column) => {
+              if (column.id == columnId) {
+                column.tasks.push(duplicatedTask)
+              }
+            });
+            this.notifierService.showSuccessNotification("Tas was successfully duplicated", 2000);
           })
       }
     });
@@ -168,4 +190,27 @@ export class MainComponent implements OnInit {
     }
   }
 
+  moveColumnRight(columnIndex: number) {
+    let cutOut = this.board.columns.splice(columnIndex, 1)[0];
+    this.board.columns.splice(columnIndex + 1, 0, cutOut);
+
+    this.updateColumnPositions();
+  }
+
+  moveColumnLeft(columnIndex: number) {
+    let cutOut = this.board.columns.splice(columnIndex, 1)[0];
+    this.board.columns.splice(columnIndex - 1, 0, cutOut);
+
+    this.updateColumnPositions();
+  }
+
+  private updateColumnPositions() {
+    let ids = [];
+    this.board.columns.forEach(column => {
+      ids.push(column.id)
+    })
+
+    this.boardColumnService.changePositionsInBoard(ids, this.board.id).subscribe(() => {
+    })
+  }
 }

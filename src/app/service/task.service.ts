@@ -54,4 +54,8 @@ export class TaskService implements OnInit {
   delete(taskId: number, columnId: number): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task/' + taskId, this.options);
   }
+
+  duplicate(taskId: number, columnId: number, projectId: number): Observable<Task> {
+    return this.http.post<Task>(environment.API_URL + '/project/' + projectId + '/board/column/' + columnId + '/task/' + taskId + '/duplicate', this.options);
+  }
 }
