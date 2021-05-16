@@ -39,6 +39,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { TippyModule } from '@ngneat/helipopper';
+import {ConfirmComponent} from "./common/components/confirm/confirm.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -51,6 +54,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     SideNavContentComponent,
     TeamComponent,
     TaskEditorComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatIconModule,
     MatRippleModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [
     AuthService,

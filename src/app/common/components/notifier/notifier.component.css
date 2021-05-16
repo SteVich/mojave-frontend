@@ -10,10 +10,13 @@
   max-width: 380px;
 }
 
+.error {
+  background: red !important;
+}
+
 .content {
   text-align: center;
 }
-
 
 @media (max-width: 870px) {
   ::ng-deep .snackbar-container {

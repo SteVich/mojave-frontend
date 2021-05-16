@@ -9,8 +9,6 @@
   <div class="side-nav-bar-menu-container"
        [ngStyle]="getSideNavBarStyle((showSideNav | async))">
 
-    <div><span class="material-icons side-nav-bar-close" (click)="onSidebarClose()">clear</span></div>
-
     <div class="side-nav-bar-content-container">
       <ng-container *ngTemplateOutlet="sidenavTemplateRef"></ng-container>
     </div>

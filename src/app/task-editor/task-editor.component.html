@@ -146,15 +146,10 @@
       </form>
       <div class="editor-footer">
         <div class="history-title">History of changes</div>
-        <div class="history-line">
-          <span class="member-name">stevi</span>
-          <span> moved card the task backlog to done.</span>
-          <span> Two days ago</span>
-        </div>
-        <div class="history-line">
-          <span class="member-name">stevi</span>
-          <span> moved card the task backlog to done.</span>
-          <span> Two days ago</span>
+        <div class="history-line" *ngFor="let history of histories">
+          <span class="member-name">{{history.user.username}}</span>
+          <span> {{history.description}}.</span>
+          <span class="date"> {{history.date | date:'medium'}}</span>
         </div>
       </div>
     </div>

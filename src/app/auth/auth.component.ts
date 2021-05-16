@@ -6,9 +6,8 @@ import {Registration} from "./model/registration.model";
 import {Login} from "./model/login.model";
 import {Observable, of} from "rxjs";
 import {delay, map, switchMap} from "rxjs/operators";
-import {NotifierService} from "../service/notifier.service";
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {NotifierService} from "../common/services/notifier.service";
+import {faGoogle} from '@fortawesome/free-brands-svg-icons';
 
 let passwordValidatorOpts = [
   Validators.required,
@@ -181,6 +180,6 @@ export class AuthComponent implements OnInit {
   }
 
   opeSuccessRegistrationSnackBar() {
-    this.notifierService.showNotification('Successfully registered!', 'success', 2000);
+    this.notifierService.showSuccessNotification('Successfully registered!', 2000);
   }
 }

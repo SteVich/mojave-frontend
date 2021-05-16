@@ -34,11 +34,24 @@ export class TaskService implements OnInit {
     return this.http.get<Tag[]>(environment.API_URL + '/project/' + projectId + '/tag');
   }
 
-  create(task: Task, columnId: number): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task', task, this.options);
+  create(task: Task, projectId: number, columnId: number): Observable<Task> {
+    return this.http.post<Task>(environment.API_URL + '/project/' + projectId + '/board/column/' + columnId + '/task', task, this.options);
   }
 
-  edit(taskId: number, task: Task, columnId: number): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task/' + taskId, task, this.options);
+  edit(task: Task, taskId: number, projectId: number, columnId: number): Observable<Task> {
+    return this.http.put<Task>(environment.API_URL + '/project/' + projectId + '/board/column/' + columnId + '/task/' + taskId, task, this.options);
+  }
+
+  changeColumn(taskId: number, projectId: number, newColumnId: number, newTaskPosition: any): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/' + projectId + '/board/column/' + newColumnId + '/task/' + taskId + '/change-column',
+      {}, {params: {'taskPosition': newTaskPosition}});
+  }
+
+  changeTasksPositionsInColumn(taskIds: number[], projectId: number, newColumnId: number): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/' + projectId + '/board/column/' + newColumnId + '/task/change-tasks-positions', taskIds, this.options);
+  }
+
+  delete(taskId: number, columnId: number): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(environment.API_URL + '/project/board/column/' + columnId + '/task/' + taskId, this.options);
   }
 }

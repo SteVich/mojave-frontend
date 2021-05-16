@@ -8,6 +8,7 @@ import {Assignee} from "../main/models/assignee.model";
 import {Milestone} from "../main/models/milestone.model";
 import {Tag} from "../main/models/tag.model";
 import {Task} from "../main/models/task.model";
+import {TaskHistory} from "../main/models/history.model";
 import {MainComponent} from "../main/main.component";
 
 @Component({
@@ -30,6 +31,8 @@ export class TaskEditorComponent implements OnInit {
 
   tags: Tag[];
   selectedTag: number;
+
+  histories: TaskHistory[] = [];
 
   taskId: number;
 
@@ -88,6 +91,11 @@ export class TaskEditorComponent implements OnInit {
         this.form.get('description').setValue(task.description);
         this.selectedPriority = task.priority;
         this.taskId = task.id;
+
+        this.histories = task.histories;
+        if (this.histories != undefined) {
+          this.histories.sort((a, b) => a.date.localeCompare(b.date));
+        }
       }
     })
   }
@@ -149,19 +157,27 @@ export class TaskEditorComponent implements OnInit {
   save() {
     if (this.form.valid) {
       let task = new Task().deserialize(this.form.value)
-      console.log(task)
-      this.mainComponent.setTaskInfo(task);
-      this.onEditorClose();
-      this.resetForm();
+      let updatedTask = new Task();
 
       if (this.taskId) {
-        this.taskService.edit(this.taskId, task, 1).subscribe(() => {
-          // todo: save in db
+        this.taskService.edit(task, this.taskId, 1, 1).subscribe(() => {
+          console.log(task)
+          updatedTask = new Task().deserialize(task);
+
+          setTimeout(() => {
+            updatedTask.id = this.taskId;
+            this.mainComponent.updateExistingTask(updatedTask);
+            this.onEditorClose();
+            this.resetForm();
+          }, 200)
         })
       } else {
-        this.taskService.create(task, 1).subscribe(() => {
-          // todo: save in db
-        })
+        this.mainComponent.createAndShowNewTask(task);
+        setTimeout(() => {
+          this.onEditorClose();
+          this.resetForm();
+        }, 300)
+
       }
     } else {
       this.form.markAllAsTouched();
@@ -170,6 +186,7 @@ export class TaskEditorComponent implements OnInit {
 
   private resetForm() {
     this.form.reset();
+    this.histories = [];
     this.form.get('title').setValue("New task");
     this.taskId = null;
   }

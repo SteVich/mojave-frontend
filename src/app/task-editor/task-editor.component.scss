@@ -140,6 +140,7 @@
         font-size: 0.7rem;
         border: 1px solid #d0cfcf;
         margin-top: 0.3rem;
+        padding-left: 0.4rem;
       }
     }
   }
@@ -165,7 +166,12 @@
       padding-left: 1rem;
       font-size: 0.6rem;
 
+      .date{
+        color: #747272;
+      }
+
       .member-name {
+        color: #747272;
         font-weight: bold;
       }
     }
