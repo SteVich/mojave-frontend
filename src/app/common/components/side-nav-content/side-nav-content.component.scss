@@ -1,19 +1,54 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
 .side-nav-bar-content {
   flex: 1;
 
+  .logo {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding-left: 0.4rem;
+    cursor: pointer;
+  }
+
   .side-nav-bar-menu {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
-  }
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
 
-  li {
-    font-size: 1.25em;
-    margin-bottom: 32px;
+    li {
+      flex: 1;
+      min-width: 3rem;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      padding: 0.4rem 0 0.4rem 0.4rem;
+      vertical-align: middle;
+      font-weight: 500;
 
-    a {
-      color: #000;
-      text-decoration: none;
+
+      .material-icons-outlined {
+        margin-top: 0.6rem !important;
+        margin-bottom: 0.6rem !important;
+      }
+
+      .menu-item {
+        vertical-align: middle;
+        padding-left: 0.6rem;
+      }
+
+      &:hover {
+        font-weight: 650;
+        background: var(--main-theme-color);
+        color: #fff;
+      }
     }
   }
+}
+
+.mat-icon {
+  vertical-align: middle;
 }

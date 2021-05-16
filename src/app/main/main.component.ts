@@ -171,7 +171,7 @@ export class MainComponent implements OnInit {
 
   deleteColumn(columnId: number, columnIndex, boardId: number) {
     if (this.board.columns[columnIndex].tasks.length > 0) {
-      this.notifierService.showSuccessNotification("You can't delete this section while it has at least 1 task", 5000);
+      this.notifierService.showSuccessNotification("You can't delete this section while it has at least 1 task", 7000);
     } else {
       const dialogRef = this.dialog.open(ConfirmComponent, {
         width: '400px',

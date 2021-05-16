@@ -1,5 +1,12 @@
 <div class="side-nav-bar-content">
+  <div class="logo">
+    <span matRipple (click)="navigateHome()">Mojave</span>
+  </div>
+
   <ul class="side-nav-bar-menu">
-    <li *ngFor="let navItem of navItems" (click)="onNavigationSelection(navItem)">{{ navItem.label }}</li>
+    <li *ngFor="let navItem of navItems" (click)="onNavigationSelection(navItem)" matRipple>
+      <mat-icon class="material-icons-outlined">{{navItem.icon}}</mat-icon>
+      <span class="menu-item">{{navItem.label}}</span>
+    </li>
   </ul>
 </div>

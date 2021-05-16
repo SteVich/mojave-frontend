@@ -5,7 +5,7 @@
 <app-side-nav
   [sidenavTemplateRef]="navContent"
   [direction]="'left'"
-  [navWidth]="250"
+  [navWidth]="220"
   [duration]="0.6"></app-side-nav>
 
 <ng-template #navContent>
@@ -92,12 +92,13 @@
                 <div class="task-estimate">
                   <div>
                     <i class="far fa-clock"></i>
-                    <span class="task-estimate-value" *ngIf="task.estimate != null">{{task.estimate}}</span>
-                    <span class="task-estimate-value" *ngIf="task.estimate == null">0</span>
+                    <span matTooltip="Estimate" [matTooltipPosition]="'below'"> {{task.estimate}}</span>
+                    <span matTooltip="Estimate" [matTooltipPosition]="'below'"
+                          class="task-estimate-value" *ngIf="task.estimate == null">0</span>
                   </div>
                 </div>
                 <div class="task-assigned-for">
-                  <div class="task-assigned-for-icon">
+                  <div class="task-assigned-for-icon" matTooltip="Stefanchak Vitalii" [matTooltipPosition]="'below'">
                     <span>SV</span>
                   </div>
                 </div>

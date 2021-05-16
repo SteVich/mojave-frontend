@@ -10,15 +10,19 @@ import { Router } from '@angular/router';
 export class SideNavContentComponent implements OnInit {
 
   navItems = [
-    {label: 'Projects', route: '/'},
-    {label: 'Boards', route: '/'},
-    {label: 'Profile', route: '/'},
-    {label: 'Help', route: '/'}
+    {label: 'Home', icon: "cottage", route: 'home'},
+    {label: 'Boards', icon: "grid_view", route: ''},
+    {label: 'Profile', icon: "person_outline", route: '/'},
+    {label: 'Help', icon: "help_outline", route: '/'}
   ];
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  navigateHome() {
+    this.router.navigate(['home']);
   }
 
   onNavigationSelection(navItem: any) {

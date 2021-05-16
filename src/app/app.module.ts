@@ -42,6 +42,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { TippyModule } from '@ngneat/helipopper';
 import {ConfirmComponent} from "./common/components/confirm/confirm.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     TeamComponent,
     TaskEditorComponent,
     ConfirmComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
