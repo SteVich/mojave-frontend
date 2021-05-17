@@ -11,7 +11,7 @@ export class NavigationService implements OnInit {
 
   constructor(private router: Router) {
     router.events.subscribe(() => {
-      this.setShowNav(true);
+      this.setShowNav(false);
     });
   }
 

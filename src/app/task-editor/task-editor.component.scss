@@ -18,7 +18,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    background: var(--main-background-color);
+    background: #fff;
     display: flex;
     flex-direction: column;
     transition: right 0.3s, visibility 0.3s;
@@ -40,7 +40,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
-  background-color: var(--second-background-color);
+  background: #fff;
   position: relative;
 
   .editor-actions {
@@ -100,7 +100,7 @@
       min-height: 2rem;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
-      background-color: var(--second-background-color);
+      background-color: #fff;
       padding: 1rem;
       font-size: 1rem;
       border-radius: 7px;
@@ -151,7 +151,7 @@
     flex: 0.15;
     font-size: 0.8rem !important;
     font-weight: 500;
-    background-color: #e7e9ec !important;
+    background-color: #f7f9fd !important;
 
     border-top: #a0a0a0;
     border-top-width: 1px;
@@ -185,7 +185,7 @@
 
 .btm2 {
   padding-top: 0.6rem;
-  margin-bottom: 1.78rem;
+  margin-bottom: 1.9rem;
   margin-top: 0.4rem;
 }
 
