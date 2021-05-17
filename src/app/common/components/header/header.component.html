@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="nav-div">
-    <nav>
+    <nav *ngIf="!hideNavItems">
       <a (click)="gotoBoard()" [ngClass]="{'active': selectedNavItem == 1}">BOARD</a>
       <a (click)="gotoTeam()" [ngClass]="{'active': selectedNavItem == 3}">TEAM</a>
       <a (click)="gotoTasks()" [ngClass]="{'active': selectedNavItem == 4}">WIKI</a>
@@ -24,7 +24,16 @@
       </button>
     </mat-menu>
   </div>
-
 </div>
 
+<app-side-nav
+  [sidenavTemplateRef]="navContent"
+  [direction]="'left'"
+  [navWidth]="220"
+  [duration]="0.6">
+</app-side-nav>
+
+<ng-template #navContent>
+  <app-side-nav-content></app-side-nav-content>
+</ng-template>
 

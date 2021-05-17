@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 import {NavigationService} from "../../services/navigation.service";
@@ -6,7 +6,7 @@ import {UserService} from "../../../service/user.service";
 import {AuthService} from "../../../auth/auth.service";
 
 @Component({
-  selector: 'app-header',
+  selector: ' app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -15,6 +15,9 @@ export class HeaderComponent implements OnInit {
   menuIcon = faBars
   selectedNavItem: number = 1
   username: string
+
+  @Input("hideNavItems")
+  hideNavItems: boolean = false;
 
   constructor(private router: Router,
               private navService: NavigationService,

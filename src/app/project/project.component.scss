@@ -1,0 +1,93 @@
+
+.project-container {
+  padding: 4rem 16rem;
+  background: #fff;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 1300px;
+
+  .welcome {
+    flex: 0;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+    color: #787878;
+
+    .image {
+      height: 10rem;
+      width: 20rem;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      border-radius: 10px ;
+    }
+
+    .hello {
+      margin-bottom: 0.5rem;
+      color: #393939;
+
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .names {
+    flex: 0.3;
+    border-top: solid 2px #a8a8a8;
+    height: 100%;
+    padding: 0 12rem 0 12rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 10rem;
+    align-items: center;
+    min-width: 5rem;
+  }
+
+  .milestone {
+    flex: 0;
+    border-top: solid 2px #a8a8a8;
+    padding: 1rem 12rem 0 12rem;
+    position: relative;
+
+  }
+
+  .tags {
+    flex: 0;
+    border-top: solid 2px #a8a8a8;
+    padding: 1rem 12rem 0 12rem;
+    position: relative;
+
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .nav {
+    flex: 0;
+    border-top: solid 2px #a8a8a8;
+    display: flex;
+    justify-content: space-around;
+    padding: 3rem 15rem 0 15rem;
+    color: gray;
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: 0.2s ease color;
+
+    div:hover {
+      color: #0764ef;
+      cursor: pointer;
+    }
+  }
+}
+
+.mat-form-field {
+  text-align: center;
+  width: 100%;
+}

@@ -11,7 +11,7 @@ export class SideNavContentComponent implements OnInit {
 
   navItems = [
     {label: 'Home', icon: "cottage", route: 'home'},
-    {label: 'Boards', icon: "grid_view", route: ''},
+    {label: 'Project', icon: "content_paste", route: 'project'},
     {label: 'Profile', icon: "person_outline", route: '/'},
     {label: 'Help', icon: "help_outline", route: '/'}
   ];

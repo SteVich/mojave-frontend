@@ -1,119 +1,108 @@
+<app-header></app-header>
 <app-task-editor></app-task-editor>
 
-<app-header></app-header>
-
-<app-side-nav
-  [sidenavTemplateRef]="navContent"
-  [direction]="'left'"
-  [navWidth]="220"
-  [duration]="0.6"></app-side-nav>
-
-<ng-template #navContent>
-  <app-side-nav-content></app-side-nav-content>
-</ng-template>
-
 <div class="board">
-    <div class="board-wrapper">
-      <div class="board-columns" cdkDropListGroup>
-        <div class="board-column" *ngFor="let column of board.columns; let columnIndex = index">
-          <div class="column-title">
-            <div class="column-title-text">
-              <mat-form-field appearance="outline" *ngIf="isColumnTitleEditableMap.get(column.id) == true">
-                <input matInput value="{{ column.name }}"
-                       (keyup.enter)="saveColumnName(column.id, columnIndex, $event.target.value)"
-                       (mouseleave)="makeColumnTitleNotEditable(column.id)">
-              </mat-form-field>
-              <span *ngIf="!isColumnTitleEditableMap.get(column.id)
+  <div class="board-wrapper">
+    <div class="board-columns" cdkDropListGroup>
+      <div class="board-column" *ngFor="let column of board.columns; let columnIndex = index">
+        <div class="column-title">
+          <div class="column-title-text">
+            <mat-form-field appearance="outline" *ngIf="isColumnTitleEditableMap.get(column.id) == true">
+              <input matInput value="{{ column.name }}"
+                     (keyup.enter)="saveColumnName(column.id, columnIndex, $event.target.value)"
+                     (mouseleave)="makeColumnTitleNotEditable(column.id)">
+            </mat-form-field>
+            <span *ngIf="!isColumnTitleEditableMap.get(column.id)
               || isColumnTitleEditableMap.get(column.id) == false"
-                    id="column-title-{{column.id}}">{{ column.name }}</span>
-            </div>
-            <div class="column-title-settings-container">
-              <div class="icon" *ngIf="board.columns[0] == column" (click)="openAddTaskEditor()"
-                   matTooltip="Add task"
-                   [matTooltipPosition]="'below'">
-                <i class="fas fa-plus"></i>
-              </div>
-              <div class="icon" [matMenuTriggerFor]="actionsMenu"
-                   matTooltip="Actions"
-                   [matTooltipPosition]="'below'">
-                <i class="fas fa-ellipsis-h"></i>
-              </div>
-              <mat-menu #actionsMenu="matMenu">
-                <button mat-menu-item (click)="makeColumnTitleEditable(column.id)">
-                  <mat-icon>edit</mat-icon>
-                  <span>Rename</span>
-                </button>
-                <button mat-menu-item (click)="moveColumnRight(columnIndex)">
-                  <mat-icon>arrow_forward_ios</mat-icon>
-                  <span>Move right</span>
-                </button>
-                <button mat-menu-item (click)="moveColumnLeft(columnIndex)">
-                  <mat-icon>arrow_back_ios_new</mat-icon>
-                  <span>Move left</span>
-                </button>
-                <button mat-menu-item (click)="deleteColumn(column.id, columnIndex, board.id)">
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-              </mat-menu>
-            </div>
+                  id="column-title-{{column.id}}">{{ column.name }}</span>
           </div>
-
-          <div class="tasks-container" cdkDropList
-               [cdkDropListData]="column.tasks"
-               (cdkDropListDropped)="drop($event, column.id)">
-            <div class="task" *ngFor="let task of column.tasks; let taskIndex = index" cdkDrag matRipple>
-              <div class="task-header">
-                <div class="task-type">
-                </div>
-                <div class="task-actions" [matMenuTriggerFor]="taskActionsMenu">
-                  <div class="icon">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </div>
-                  <mat-menu #taskActionsMenu="matMenu">
-                    <button mat-menu-item matRipple (click)="duplicateTask(task.id, taskIndex, column.id)">
-                      <mat-icon>control_point_duplicate</mat-icon>
-                      <span>Duplicate</span>
-                    </button>
-                    <button mat-menu-item matRipple (click)="deleteTask(task.id, taskIndex, column.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                  </mat-menu>
-                </div>
-              </div>
-              <div class="task-body" (click)="openEditTaskEditor(task,columnIndex)">
-                {{task.title}}
-              </div>
-              <div class="task-footer" (click)="openEditTaskEditor(task, columnIndex)">
-                <div class="task-number">
-                  #{{task.id}}
-                </div>
-                <div class="task-estimate">
-                  <div>
-                    <i class="far fa-clock"></i>
-                    <span matTooltip="Estimate" [matTooltipPosition]="'below'"> {{task.estimate}}</span>
-                    <span matTooltip="Estimate" [matTooltipPosition]="'below'"
-                          class="task-estimate-value" *ngIf="task.estimate == null">0</span>
-                  </div>
-                </div>
-                <div class="task-assigned-for">
-                  <div class="task-assigned-for-icon" matTooltip="Stefanchak Vitalii" [matTooltipPosition]="'below'">
-                    <span>SV</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="add-task" *ngIf="board.columns[0] == column" (click)="openAddTaskEditor()">
+          <div class="column-title-settings-container">
+            <div class="icon" *ngIf="board.columns[0] == column" (click)="openAddTaskEditor()"
+                 matTooltip="Add task"
+                 [matTooltipPosition]="'below'">
               <i class="fas fa-plus"></i>
-              <span>Add task</span>
             </div>
+            <div class="icon" [matMenuTriggerFor]="actionsMenu"
+                 matTooltip="Actions"
+                 [matTooltipPosition]="'below'">
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <mat-menu #actionsMenu="matMenu">
+              <button mat-menu-item (click)="makeColumnTitleEditable(column.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Rename</span>
+              </button>
+              <button mat-menu-item (click)="moveColumnRight(columnIndex)">
+                <mat-icon>arrow_forward_ios</mat-icon>
+                <span>Move right</span>
+              </button>
+              <button mat-menu-item (click)="moveColumnLeft(columnIndex)">
+                <mat-icon>arrow_back_ios_new</mat-icon>
+                <span>Move left</span>
+              </button>
+              <button mat-menu-item (click)="deleteColumn(column.id, columnIndex, board.id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
           </div>
         </div>
-        <div class="add-board-column" (click)="addColumn()" *ngIf="!isAddNewSectionHidden">
-          <span>+ Add section</span>
+
+        <div class="tasks-container" cdkDropList
+             [cdkDropListData]="column.tasks"
+             (cdkDropListDropped)="drop($event, column.id)">
+          <div class="task" *ngFor="let task of column.tasks; let taskIndex = index" cdkDrag matRipple>
+            <div class="task-header">
+              <div class="task-type">
+              </div>
+              <div class="task-actions" [matMenuTriggerFor]="taskActionsMenu">
+                <div class="icon">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <mat-menu #taskActionsMenu="matMenu">
+                  <button mat-menu-item matRipple (click)="duplicateTask(task.id, taskIndex, column.id)">
+                    <mat-icon>control_point_duplicate</mat-icon>
+                    <span>Duplicate</span>
+                  </button>
+                  <button mat-menu-item matRipple (click)="deleteTask(task.id, taskIndex, column.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="task-body" (click)="openEditTaskEditor(task,columnIndex)">
+              {{task.title}}
+            </div>
+            <div class="task-footer" (click)="openEditTaskEditor(task, columnIndex)">
+              <div class="task-number">
+                #{{task.id}}
+              </div>
+              <div class="task-estimate">
+                <div>
+                  <i class="far fa-clock"></i>
+                  <span matTooltip="Estimate" [matTooltipPosition]="'below'"> {{task.estimate}}</span>
+                  <span matTooltip="Estimate" [matTooltipPosition]="'below'"
+                        class="task-estimate-value" *ngIf="task.estimate == null">0</span>
+                </div>
+              </div>
+              <div class="task-assigned-for">
+                <div class="task-assigned-for-icon" matTooltip="Stefanchak Vitalii" [matTooltipPosition]="'below'">
+                  <span>SV</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-task" *ngIf="board.columns[0] == column" (click)="openAddTaskEditor()">
+            <i class="fas fa-plus"></i>
+            <span>Add task</span>
+          </div>
         </div>
       </div>
+      <div class="add-board-column" (click)="addColumn()" *ngIf="!isAddNewSectionHidden">
+        <span>+ Add section</span>
+      </div>
     </div>
+  </div>
 </div>

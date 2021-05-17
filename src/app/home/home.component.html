@@ -1,1 +1,39 @@
-<p>Coming soon</p>
+<app-header [hideNavItems]="true"></app-header>
+
+<div class="home-container">
+  <div class="welcome">
+    <div class="image">
+      <img src="/assets/images/welcome.svg" class="image" alt=""/>
+    </div>
+    <div class="welcome-text">
+      <div class="hello">
+        Hello SteVi!
+      </div>
+      <div>Welcome to Mojave!</div>
+      This is your home page, where you can quickly see your projects and create the new ones
+    </div>
+  </div>
+  <div class="projects">
+    <div class="cards-list">
+      <div *ngFor="let project of projects">
+        <div class="card">
+          <div class="card_image">
+            <img [src]="project.imageUrl"/>
+          </div>
+          <div class="card_title title-white">
+            <p>{{project.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border: dashed 1px gray !important;">
+        <div class="card_image" matRipple>
+          <img src="https://icon-library.com/images/icon-small/icon-small-15.jpg"></div>
+        <div class="card_title title-white">
+          <p>New</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
