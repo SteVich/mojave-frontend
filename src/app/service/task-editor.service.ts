@@ -13,7 +13,7 @@ export class TaskEditorService implements OnInit {
 
   constructor(private router: Router) {
     router.events.subscribe(() => {
-      this.setShowEditor(true);
+      this.setShowEditor(false);
     });
   }
 
