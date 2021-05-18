@@ -1,6 +1,6 @@
 
 .project-container {
-  padding: 4rem 16rem;
+  padding: 4rem 16rem 0 16rem;
   background: #fff;
   min-height: 100vh !important;
   display: flex;
@@ -40,20 +40,35 @@
     flex: 0.3;
     border-top: solid 2px #a8a8a8;
     height: 100%;
-    padding: 0 12rem 0 12rem;
+    padding: 1rem 6rem 0 6rem;
     display: flex;
     flex-direction: column;
-    max-height: 10rem;
     align-items: center;
     min-width: 5rem;
+    font-size: 0.76rem;
+
+    .title {
+      padding-left: 4.5rem !important;
+      padding-right: 4.5rem !important;
+    }
+
+    .image-url {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
   }
 
   .milestone {
     flex: 0;
     border-top: solid 2px #a8a8a8;
-    padding: 1rem 12rem 0 12rem;
+    padding: 1rem 10rem 0 10rem;
     position: relative;
+    font-size: 0.76rem;
 
+    input.mat-chip-input {
+      flex: 0!important;
+      text-align: left;
+    }
   }
 
   .tags {
@@ -61,6 +76,12 @@
     border-top: solid 2px #a8a8a8;
     padding: 1rem 12rem 0 12rem;
     position: relative;
+    font-size: 0.76rem;
+
+    input.mat-chip-input {
+      flex: 0!important;
+      text-align: left;
+    }
 
     .mat-form-field {
       width: 100%;
@@ -72,11 +93,11 @@
     border-top: solid 2px #a8a8a8;
     display: flex;
     justify-content: space-around;
-    padding: 3rem 15rem 0 15rem;
+    padding: 2rem 12rem 0 12rem;
     color: gray;
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: bold;
     transition: 0.2s ease color;
 
@@ -85,9 +106,16 @@
       cursor: pointer;
     }
   }
+
 }
 
 .mat-form-field {
   text-align: center;
   width: 100%;
+  font-size: 0.76rem;
+}
+
+.button {
+  font-size: 2rem;
+  font-weight: bold !important;
 }

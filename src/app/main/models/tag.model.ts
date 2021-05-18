@@ -4,6 +4,7 @@ export class Tag implements Deserializable {
 
   id?: number;
   name?: string;
+  color?: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);

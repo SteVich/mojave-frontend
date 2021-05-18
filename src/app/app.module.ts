@@ -39,11 +39,11 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { TippyModule } from '@ngneat/helipopper';
 import {ConfirmComponent} from "./common/components/confirm/confirm.component";
 import {MatDialogModule} from "@angular/material/dialog";
-import { HomeComponent } from './home/home.component';
-import { ProjectComponent } from './project/project.component';
+import {HomeComponent} from './home/home.component';
+import {ProjectComponent} from './project/project.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 @NgModule({
   declarations: [
@@ -89,6 +89,7 @@ import { ProjectComponent } from './project/project.component';
     MatMenuModule,
     MatTooltipModule,
     MatDialogModule,
+    ColorPickerModule
   ],
   providers: [
     AuthService,
