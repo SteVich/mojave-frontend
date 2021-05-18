@@ -4,12 +4,12 @@ import {Tag} from "../../main/models/tag.model";
 
 export class Project implements Deserializable {
 
-  id: number;
-  name: string;
-  imageUrl: string;
-  description;
-  milestones: Milestone[];
-  tags: Tag[];
+  id?: number;
+  name?: string;
+  imageUrl?: string;
+  description?: string;
+  milestones?: Milestone[];
+  tags?: Tag[];
 
 
   constructor(id: number, name: string, imageUrl: string, description, milestones: Milestone[], tags: Tag[]) {

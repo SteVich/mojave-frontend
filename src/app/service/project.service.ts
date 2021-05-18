@@ -3,9 +3,9 @@ import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../common/models/project.model";
-import {Milestone} from "../main/models/milestone.model";
 import {ApiResponse} from "../common/models/apiResponse.model";
 import {Tag} from "../main/models/tag.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,27 +18,23 @@ export class ProjectService implements OnInit {
   ngOnInit() {
   }
 
-  getProject(): Observable<Project> {
-    let milestone = new Milestone();
-    milestone.id = 1;
-    milestone.name = "June"
-
-    let tag = new Tag();
-    tag.id = 1;
-    tag.name = "Bug";
-    tag.color = 'gray';
-
-    return of(new Project(1, 'Mojave', '', "Descriptions", [milestone], [tag]));
+  getProject(id: number): Observable<Project> {
+    return this.http.get<Project>(environment.API_URL + '/project/' + id);
   }
 
   saveProjectName(id: number, name: string): Observable<ApiResponse> {
-    console.log(name)
-    return of();
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/' + id + '/name', {},
+      {params: {'name': name}});
   }
 
   saveProjectDescription(id: number, description: string): Observable<ApiResponse> {
-    console.log(description)
-    return of();
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/' + id + '/description', {},
+      {params: {'description': description}});
+  }
+
+  saveProjectImageUrl(id: number, imageUrl: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/' + id + '/imageUrl', {},
+      {params: {'imageUrl': imageUrl}});
   }
 
   saveProjectMilestone(id: number, milestone: string): Observable<ApiResponse> {
@@ -53,11 +49,6 @@ export class ProjectService implements OnInit {
 
   updateProjectTag(tag: Tag): Observable<ApiResponse> {
     console.log(tag)
-    return of();
-  }
-
-  saveProjectImageUrl(id: number, imagUrl: string): Observable<ApiResponse> {
-    console.log(imagUrl)
     return of();
   }
 }

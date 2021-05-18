@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Project} from "../common/models/project.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import {Project} from "../common/models/project.model";
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   projects: Project[] = [
@@ -20,4 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  routeToProject(project: Project) {
+    this.router.navigate(['project'])
+  }
 }

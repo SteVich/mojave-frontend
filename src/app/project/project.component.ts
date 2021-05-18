@@ -20,6 +20,8 @@ export class ProjectComponent implements OnInit {
   @ViewChild("tagInput")
   tagInput: ElementRef;
 
+  projectId: number = 1;
+
   project: Project;
   selectable = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -30,7 +32,7 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectService.getProject().subscribe(project => {
+    this.projectService.getProject(this.projectId).subscribe(project => {
       this.project = project;
       this.milestones = project.milestones;
       this.tags = project.tags;

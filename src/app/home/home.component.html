@@ -16,7 +16,7 @@
   <div class="projects">
     <div class="cards-list">
       <div *ngFor="let project of projects">
-        <div class="card">
+        <div class="card" (click)="routeToProject(project)">
           <div class="card_image">
             <img [src]="project.imageUrl"/>
           </div>

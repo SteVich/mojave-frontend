@@ -15,19 +15,19 @@
   <div class="names">
     <mat-form-field class="title">
       <mat-label>Name</mat-label>
-      <input matInput #name maxlength="30" placeholder="Project"
+      <input matInput #name maxlength="30" placeholder="Project" matTooltip="press enter to save"
              [ngModel]="project.name" (keyup.enter)="saveProjectName($event.target.value)">
       <mat-hint align="end">{{name.value.length}} / 30</mat-hint>
     </mat-form-field>
     <mat-form-field class="description">
       <mat-label>Description</mat-label>
-      <input matInput #description maxlength="256" placeholder="Short description"
+      <input matInput #description maxlength="256" placeholder="Short description" matTooltip="press enter to save"
              [ngModel]="project.description" (keyup.enter)="saveProjectDescription($event.target.value)">
       <mat-hint align="end">{{description.value.length}} / 120</mat-hint>
     </mat-form-field>
     <mat-form-field class="image-url">
       <mat-label>Image url</mat-label>
-      <input matInput placeholder="http://"
+      <input matInput placeholder="http://" matTooltip="press enter to save"
              [ngModel]="project.imageUrl" (keyup.enter)="saveProjectImageUrl($event.target.value)">
     </mat-form-field>
   </div>

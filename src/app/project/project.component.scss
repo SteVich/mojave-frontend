@@ -50,6 +50,11 @@
     .title {
       padding-left: 4.5rem !important;
       padding-right: 4.5rem !important;
+      font-weight: bold;
+    }
+
+    .description {
+      font-weight: 500;
     }
 
     .image-url {
@@ -106,7 +111,6 @@
       cursor: pointer;
     }
   }
-
 }
 
 .mat-form-field {
