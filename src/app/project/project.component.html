@@ -54,11 +54,11 @@
       <mat-chip-list #tagList>
         <mat-chip *ngFor="let tag of tags"
                   [(colorPicker)]="color" (colorPickerChange)="saveTagColor(color, tag)"
-                  [style.background]="color"
+                  [style.background]="chipsBackgroundMap.get(tag.id)"
                   [cpCancelButton]="true"
                   [cpOKButton]="true"
                   [cpCancelButtonClass]="'button'"
-                  [cpPresetColors]="['#03f60f', '#ea1414', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+                  [cpPresetColors]="['#16ec21', '#e57615', '#2889e9', '#d516d5', '#fff500', '#0d30ed']"
                   (click)="$event.stopPropagation();"
                   [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
           {{tag.name}}

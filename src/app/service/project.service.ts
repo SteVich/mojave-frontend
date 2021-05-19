@@ -1,10 +1,9 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../common/models/project.model";
 import {ApiResponse} from "../common/models/apiResponse.model";
-import {Tag} from "../main/models/tag.model";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -37,19 +36,27 @@ export class ProjectService implements OnInit {
       {params: {'imageUrl': imageUrl}});
   }
 
-  saveProjectMilestone(id: number, milestone: string): Observable<ApiResponse> {
-    console.log(milestone)
-    return of();
+  saveProjectMilestone(projectId: number, milestone: string): Observable<number> {
+    return this.http.post<number>(environment.API_URL + '/project/' + projectId + '/milestone', {},
+      {params: {'name': milestone}});
   }
 
-  saveProjectTag(id: number, tag: string): Observable<ApiResponse> {
-    console.log(tag)
-    return of();
+  deleteProjectMilestone(projectId: number, milestoneId: number): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(environment.API_URL + '/project/' + projectId + '/milestone/' + milestoneId);
   }
 
-  updateProjectTag(tag: Tag): Observable<ApiResponse> {
-    console.log(tag)
-    return of();
+  saveProjectTag(projectId: number, tag: string, color: string): Observable<number> {
+    return this.http.post<number>(environment.API_URL + '/project/' + projectId + '/tag', {},
+      {params: {'name': tag, 'color': color}});
+  }
+
+  deleteProjectTag(projectId: number, tagId: number): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(environment.API_URL + '/project/' + projectId + '/tag/' + tagId);
+  }
+
+  updateProjectColor(tagId: number, newColor: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(environment.API_URL + '/project/tag/' + tagId, {},
+      {params: {'newColor': newColor}});
   }
 }
 

@@ -86,7 +86,6 @@ export class MainComponent implements OnInit {
   }
 
   public updateExistingTask(updatedTask: Task) {
-    console.log(updatedTask)
     this.board.columns[this.editColumnIndex].tasks.map((task, i) => {
       if (task.id == updatedTask.id) {
         this.board.columns[this.editColumnIndex].tasks[i] = updatedTask;
