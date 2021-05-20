@@ -13,25 +13,33 @@
     </div>
   </div>
   <div class="names">
-    <mat-form-field class="title">
-      <mat-label>Name</mat-label>
-      <input matInput #name maxlength="30" placeholder="Project" matTooltip="press enter to save"
-             [ngModel]="project.name" (keyup.enter)="saveProjectName($event.target.value)">
-      <mat-hint align="end">{{name.value.length}} / 30</mat-hint>
-    </mat-form-field>
+    <div class="title" [formGroup]="titleForm">
+      <mat-form-field class="title">
+        <mat-label>Title</mat-label>
+        <input matInput #name maxlength="30" placeholder="Project" formControlName="name"
+               matTooltip="change text to save"
+               [ngModel]="project.name" (change)="saveProjectName()" (keyup.enter)="saveProjectName()">
+        <mat-hint align="end">{{name.value.length}} / 30</mat-hint>
+      </mat-form-field>
+      <div *ngIf="title.invalid && (title.dirty || title.touched)"
+           class="validation-error-message">
+        <div *ngIf="title.errors.required">
+          Title is required
+        </div>
+      </div>
+    </div>
     <mat-form-field class="description">
       <mat-label>Description</mat-label>
-      <input matInput #description maxlength="120" placeholder="Short description" matTooltip="press enter to save"
-             [ngModel]="project.description" (keyup.enter)="saveProjectDescription($event.target.value)">
+      <input matInput #description maxlength="120" placeholder="Short description"
+             matTooltip="change text to save"
+             [ngModel]="project.description" (keyup)="saveProjectDescription($event)">
       <mat-hint align="end">{{description.value.length}} / 120</mat-hint>
     </mat-form-field>
     <div [formGroup]="imageForm" class="image-url">
       <mat-form-field style="width: 100%">
         <mat-label>Image url</mat-label>
-        <input matInput placeholder="http://"
-               formControlName="imageUrl"
-               matTooltip="press enter to save"
-               (keyup.enter)="saveProjectImageUrl()">
+        <input matInput placeholder="http://" formControlName="imageUrl"
+               matTooltip="change text to save" (keyup)="saveProjectImageUrl()">
       </mat-form-field>
       <div *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)"
            class="validation-error-message">
@@ -50,7 +58,9 @@
           {{milestone.name}}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-        <input placeholder="New ..." #milestoneInput
+        <input #milestoneInput
+               [disabled]="milestones.length > 14"
+               [placeholder]="milestones.length > 14 ? 'Only 15 are allowed' : 'Add new..'"
                [matChipInputFor]="milestoneList"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="true"
@@ -86,7 +96,8 @@
             </div>
           </mat-menu>
         </mat-chip>
-        <input placeholder="New ..." #tagInput
+        <input #tagInput [disabled]="tags.length > 9"
+               [placeholder]="tags.length > 9 ? 'Only 10 are allowed' : 'Add new..'"
                [matChipInputFor]="tagList"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="true"

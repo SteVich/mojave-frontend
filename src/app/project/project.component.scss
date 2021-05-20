@@ -37,10 +37,9 @@
   }
 
   .names {
-    flex: 0.3;
     border-top: solid 2px #a8a8a8;
     height: 100%;
-    padding: 1rem 6rem 0 6rem;
+    padding: 1rem 6rem 1rem 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,6 +50,7 @@
       padding-left: 4.5rem !important;
       padding-right: 4.5rem !important;
       font-weight: bold;
+      width: 100%;
     }
 
     .description {
@@ -145,5 +145,9 @@
 }
 
 ::ng-deep .error {
+  color: red;
+}
+
+.validation-error-message {
   color: red;
 }

@@ -38,6 +38,7 @@ export class ProjectComponent implements OnInit {
   tags: Tag[] = [];
 
   imageForm: FormGroup;
+  titleForm: FormGroup;
 
   constructor(private router: Router,
               private projectService: ProjectService,
@@ -48,6 +49,9 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.imageForm = new FormGroup({
       imageUrl: new FormControl('', [Validators.pattern("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?")])
+    });
+    this.titleForm = new FormGroup({
+      name: new FormControl('', [Validators.required])
     });
 
     this.projectService.getProject(this.projectId).subscribe(project => {
@@ -60,7 +64,7 @@ export class ProjectComponent implements OnInit {
       })
 
       this.imageForm.get('imageUrl').setValue(project.imageUrl);
-      console.log(this.chipsBackgroundMap)
+      this.titleForm.get('name').setValue(project.name);
     })
   }
 
@@ -68,8 +72,12 @@ export class ProjectComponent implements OnInit {
     return this.imageForm.get('imageUrl');
   }
 
+  get title() {
+    return this.titleForm.get('name');
+  }
+
   addMilestone(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = this.titleCaseWord((event.value || '').trim());
     if (value) {
       this.projectService.saveProjectMilestone(this.project.id, value).subscribe((createdId) => {
         let milestone = new Milestone();
@@ -105,7 +113,7 @@ export class ProjectComponent implements OnInit {
   // todo: need to filter tasks by milestones.
 
   addTag(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = this.titleCaseWord((event.value || '').trim());
 
     let colors = ['#0764ef', '#2fdb11', '#efeb07', '#ef0707', '#6007ef', '#07efef', '#ef7f07', '#282e93', '#ef07c8'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -121,7 +129,7 @@ export class ProjectComponent implements OnInit {
         this.tags.push(tag);
       });
     }
-    this.tagInput.nativeElement.value = ''
+    this.tagInput.nativeElement.value = '';
   }
 
   removeTag(tag: Tag): void {
@@ -150,12 +158,16 @@ export class ProjectComponent implements OnInit {
     this.router.navigate([path]);
   }
 
-  saveProjectName(value) {
-    this.projectService.saveProjectName(this.project.id, value).subscribe()
+  saveProjectName() {
+    if (this.titleForm.valid) {
+      this.projectService.saveProjectName(this.project.id, this.titleCaseWord(this.title.value)).subscribe()
+    } else {
+      this.titleForm.markAllAsTouched();
+    }
   }
 
-  saveProjectDescription(value) {
-    this.projectService.saveProjectDescription(this.project.id, value).subscribe()
+  saveProjectDescription(event: any) {
+    this.projectService.saveProjectDescription(this.project.id, this.titleCaseWord(event.target.value)).subscribe()
   }
 
   saveProjectImageUrl() {
@@ -172,5 +184,9 @@ export class ProjectComponent implements OnInit {
     this.projectService.updateProjectColor(tag.id, value).subscribe()
   }
 
+  titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1);
+  }
 }
 
