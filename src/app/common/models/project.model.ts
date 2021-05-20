@@ -8,18 +8,8 @@ export class Project implements Deserializable {
   name?: string;
   imageUrl?: string;
   description?: string;
-  milestones?: Milestone[];
-  tags?: Tag[];
-
-
-  constructor(id: number, name: string, imageUrl: string, description, milestones: Milestone[], tags: Tag[]) {
-    this.id = id;
-    this.name = name;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.milestones = milestones;
-    this.tags = tags;
-  }
+  milestones?: Milestone[] = [];
+  tags?: Tag[] = [];
 
   deserialize(input: any): this {
     Object.assign(this, input);

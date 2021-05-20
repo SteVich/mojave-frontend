@@ -103,7 +103,7 @@
     border-top: solid 2px #a8a8a8;
     display: flex;
     justify-content: space-around;
-    padding: 2rem 12rem 1rem 12rem;
+    padding: 2rem 11rem 1rem 11rem;
     color: gray;
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -151,3 +151,45 @@
 .validation-error-message {
   color: red;
 }
+
+a {
+  font-size: 0.7rem;
+  padding: 0.5rem 2rem;
+  color: #0561e8;
+  text-transform: uppercase;
+}
+
+.save-btn {
+  text-decoration: none;
+  border-radius: 35px;
+  border: 2px solid rgb(66, 69, 217);
+  position: relative;
+  overflow: hidden;
+}
+
+.save-btn:hover {
+  box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+}
+
+.save-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(146, 148, 248, 0.4),
+      transparent
+  );
+  transition: all 650ms;
+}
+
+.save-btn:hover:before {
+  left: 100%;
+}
+
+
+

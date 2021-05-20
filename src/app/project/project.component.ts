@@ -29,9 +29,9 @@ export class ProjectComponent implements OnInit {
 
   chipsBackgroundMap: Map<number, string> = new Map();
 
-  projectId: number = 1;
+  projectId: number;
 
-  project: Project; //todo add project init here
+  project: Project = new Project();
   selectable = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   milestones: Milestone[] = [];
@@ -40,6 +40,9 @@ export class ProjectComponent implements OnInit {
   imageForm: FormGroup;
   titleForm: FormGroup;
 
+  isMilestoneCreated: boolean = true;
+  isTagCreated: boolean = true;
+
   constructor(private router: Router,
               private projectService: ProjectService,
               private notifier: NotifierService,
@@ -47,11 +50,13 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.projectId = Number(localStorage.getItem('projectId'));
+
     this.imageForm = new FormGroup({
       imageUrl: new FormControl('', [Validators.pattern("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?")])
     });
     this.titleForm = new FormGroup({
-      name: new FormControl('', [Validators.required])
+      name: new FormControl('', [Validators.required, Validators.min(2)])
     });
 
     this.projectService.getProject(this.projectId).subscribe(project => {
@@ -62,9 +67,9 @@ export class ProjectComponent implements OnInit {
       project.tags.forEach(tag => {
         this.chipsBackgroundMap.set(tag.id, tag.color);
       })
-
       this.imageForm.get('imageUrl').setValue(project.imageUrl);
       this.titleForm.get('name').setValue(project.name);
+    }, error => {
     })
   }
 
@@ -79,12 +84,17 @@ export class ProjectComponent implements OnInit {
   addMilestone(event: MatChipInputEvent): void {
     const value = this.titleCaseWord((event.value || '').trim());
     if (value) {
-      this.projectService.saveProjectMilestone(this.project.id, value).subscribe((createdId) => {
-        let milestone = new Milestone();
-        milestone.name = value;
-        milestone.id = createdId;
-        this.milestones.push(milestone);
-      });
+      let milestone = new Milestone();
+      milestone.name = value;
+      if (this.project.id) {
+        this.projectService.saveProjectMilestone(this.project.id, value).subscribe((createdId) => {
+          milestone.id = createdId;
+
+          this.isMilestoneCreated = true;
+        });
+      }
+      this.project.milestones.push(milestone);
+      this.milestones.push(milestone);
     }
     this.milestoneInput.nativeElement.value = '';
   }
@@ -96,15 +106,15 @@ export class ProjectComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.projectService.deleteProjectMilestone(this.project.id, milestone.id).subscribe((response) => {
-          if (response.success) {
-            const index = this.milestones.indexOf(milestone);
-            if (index >= 0) {
-              this.milestones.splice(index, 1);
-            }
-          }
-          this.notifier.showSuccessNotification(response.message, 2000);
-        });
+        if (this.project.id) {
+          this.projectService.deleteProjectMilestone(this.project.id, milestone.id).subscribe((response) => {
+            this.notifier.showSuccessNotification(response.message, 2000);
+          });
+        }
+        const index = this.milestones.indexOf(milestone);
+        if (index >= 0) {
+          this.milestones.splice(index, 1);
+        }
       }
     });
   }
@@ -119,15 +129,18 @@ export class ProjectComponent implements OnInit {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
     if (value) {
-      this.projectService.saveProjectTag(this.project.id, value, randomColor).subscribe((createdId) => {
-        let tag = new Tag();
-        tag.id = createdId;
-        tag.name = value;
-        tag.color = randomColor;
-
-        this.chipsBackgroundMap.set(tag.id, tag.color);
-        this.tags.push(tag);
-      });
+      let tag = new Tag();
+      tag.name = value;
+      tag.color = randomColor;
+      if (this.project.id) {
+        this.projectService.saveProjectTag(this.project.id, value, randomColor).subscribe((createdId) => {
+          tag.id = createdId;
+          this.isTagCreated = true;
+        });
+      }
+      this.chipsBackgroundMap.set(tag.id, tag.color);
+      this.project.tags.push(tag);
+      this.tags.push(tag);
     }
     this.tagInput.nativeElement.value = '';
   }
@@ -139,16 +152,16 @@ export class ProjectComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.projectService.deleteProjectTag(this.project.id, tag.id).subscribe((response) => {
-              if (response.success) {
-                const index = this.tags.indexOf(tag);
-                if (index >= 0) {
-                  this.tags.splice(index, 1);
-                }
+          if (this.project.id) {
+            this.projectService.deleteProjectTag(this.project.id, tag.id).subscribe((response) => {
+                this.notifier.showSuccessNotification(response.message, 2000);
               }
-              this.notifier.showSuccessNotification(response.message, 2000);
-            }
-          )
+            )
+          }
+          const index = this.tags.indexOf(tag);
+          if (index >= 0) {
+            this.tags.splice(index, 1);
+          }
         }
       }
     );
@@ -160,19 +173,33 @@ export class ProjectComponent implements OnInit {
 
   saveProjectName() {
     if (this.titleForm.valid) {
-      this.projectService.saveProjectName(this.project.id, this.titleCaseWord(this.title.value)).subscribe()
+      let name = this.titleCaseWord(this.title.value);
+      if (this.project.id) {
+        this.projectService.saveProjectName(this.project.id, name).subscribe()
+      } else {
+        this.project.name = name;
+      }
     } else {
       this.titleForm.markAllAsTouched();
     }
   }
 
   saveProjectDescription(event: any) {
-    this.projectService.saveProjectDescription(this.project.id, this.titleCaseWord(event.target.value)).subscribe()
+    let description = this.titleCaseWord(event.target.value);
+    if (this.project.id) {
+      this.projectService.saveProjectDescription(this.project.id, description).subscribe()
+    } else {
+      this.project.description = description;
+    }
   }
 
   saveProjectImageUrl() {
     if (this.imageForm.valid) {
-      this.projectService.saveProjectImageUrl(this.project.id, this.imageUrl.value).subscribe()
+      if (this.project.id) {
+        this.projectService.saveProjectImageUrl(this.project.id, this.imageUrl.value).subscribe()
+      } else {
+        this.project.imageUrl = this.imageUrl.value;
+      }
     } else {
       this.imageForm.markAllAsTouched();
     }
@@ -182,6 +209,24 @@ export class ProjectComponent implements OnInit {
     tag.color = value;
     this.chipsBackgroundMap.set(tag.id, tag.color);
     this.projectService.updateProjectColor(tag.id, value).subscribe()
+  }
+
+  createNewProject() {
+    if (this.titleForm.valid) {
+      if (this.milestones.length == 0) {
+        this.isMilestoneCreated = false;
+      } else if (this.tags.length == 0) {
+        this.isTagCreated = false
+      } else {
+        this.projectService.createProject(this.project).subscribe(savedProject => {
+          this.notifier.showSuccessNotification("Project was successfully created", 2000);
+          localStorage.setItem('projectId', String(savedProject.id))
+          this.router.navigate([''])
+        });
+      }
+    } else {
+      this.titleForm.markAllAsTouched();
+    }
   }
 
   titleCaseWord(word: string) {

@@ -23,6 +23,8 @@ export class MainComponent implements OnInit {
   isColumnTitleEditableMap: Map<number, boolean> = new Map();
   isAddNewSectionHidden: boolean = false;
 
+  projectId: number;
+
   constructor(private taskEditorService: TaskEditorService,
               private boardService: BoardService,
               private taskService: TaskService,
@@ -32,8 +34,9 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    let projectId = 1;
-    this.boardService.getDefaultForProject(projectId).subscribe((board) => {
+    this.projectId = Number(localStorage.getItem('projectId'));
+
+    this.boardService.getDefaultForProject(this.projectId).subscribe((board) => {
       this.board = board;
     }, (error => {
       console.log(error)
@@ -49,7 +52,7 @@ export class MainComponent implements OnInit {
         taskIds.push(task.id)
       })
 
-      this.taskService.changeTasksPositionsInColumn(taskIds, 1, columnId).subscribe(() => {
+      this.taskService.changeTasksPositionsInColumn(taskIds, this.projectId, columnId).subscribe(() => {
       })
     } else {
       transferArrayItem(
@@ -60,7 +63,7 @@ export class MainComponent implements OnInit {
       );
 
       let taskId = event.container.data[event.currentIndex].id
-      this.taskService.changeColumn(taskId, 1, columnId, event.currentIndex).subscribe(() => {
+      this.taskService.changeColumn(taskId, this.projectId, columnId, event.currentIndex).subscribe(() => {
       })
     }
   }
@@ -79,7 +82,7 @@ export class MainComponent implements OnInit {
 
   public createAndShowNewTask(task: Task) {
     task.positionInColumn = this.board.columns[0].tasks.length + 1;
-    this.taskService.create(task, 1, this.board.columns[0].id).subscribe((task) => {
+    this.taskService.create(task, this.projectId, this.board.columns[0].id).subscribe((task) => {
       let updatedTask = new Task().deserialize(task);
       this.board.columns[0].tasks.push(updatedTask)
     })
@@ -96,7 +99,7 @@ export class MainComponent implements OnInit {
   addColumn() {
     if (this.board.columns.length <= 12) {
       let defaultNewColumnName = "New section";
-      this.boardColumnService.createBoardColumn(1, this.board.id, defaultNewColumnName)
+      this.boardColumnService.createBoardColumn(this.projectId, this.board.id, defaultNewColumnName)
         .subscribe((columnId) => {
           this.board.columns.push(new Column(columnId, defaultNewColumnName, []))
         })
@@ -120,7 +123,7 @@ export class MainComponent implements OnInit {
     let thisColumn = this.board.columns[columnIndex];
     thisColumn.name = value;
 
-    this.boardColumnService.updateColumnName(1, thisColumn.id, value)
+    this.boardColumnService.updateColumnName(this.projectId, thisColumn.id, value)
       .subscribe(() => {
         setTimeout(() => {
           this.isColumnTitleEditableMap.set(id, false);

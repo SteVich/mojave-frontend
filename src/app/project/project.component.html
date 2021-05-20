@@ -7,7 +7,7 @@
     </div>
     <div class="welcome-text">
       <div class="hello">
-        Mojave project
+        {{project.name ? project.name : 'New'}} project
       </div>
       Here you can set the project info
     </div>
@@ -18,13 +18,16 @@
         <mat-label>Title</mat-label>
         <input matInput #name maxlength="30" placeholder="Project" formControlName="name"
                matTooltip="change text to save"
-               [ngModel]="project.name" (change)="saveProjectName()" (keyup.enter)="saveProjectName()">
+               [ngModel]="project.name" (change)="saveProjectName()" (keyup)="saveProjectName()">
         <mat-hint align="end">{{name.value.length}} / 30</mat-hint>
       </mat-form-field>
       <div *ngIf="title.invalid && (title.dirty || title.touched)"
            class="validation-error-message">
         <div *ngIf="title.errors.required">
           Title is required
+        </div>
+        <div *ngIf="title.errors.min">
+          Title should have at least 2 characters
         </div>
       </div>
     </div>
@@ -51,7 +54,7 @@
   </div>
   <div class="milestone">
     <mat-form-field>
-      <mat-label>Milestones</mat-label>
+      <mat-label [ngClass]="{'validation-error-message': !isMilestoneCreated}">Milestones</mat-label>
       <mat-chip-list #milestoneList>
         <mat-chip *ngFor="let milestone of milestones"
                   [selectable]="true" [removable]="true" (removed)="removeMilestone(milestone)">
@@ -67,10 +70,14 @@
                (matChipInputTokenEnd)="addMilestone($event)">
       </mat-chip-list>
     </mat-form-field>
+    <div *ngIf="!isMilestoneCreated"
+         class="validation-error-message">
+      At least one milestone is required
+    </div>
   </div>
   <div class="tags">
     <mat-form-field>
-      <mat-label>Tags</mat-label>
+      <mat-label [ngClass]="{'validation-error-message': !isTagCreated}">Tags</mat-label>
       <mat-chip-list #tagList>
         <mat-chip *ngFor="let tag of tags"
                   [ngStyle]="{'background-color': chipsBackgroundMap.get(tag.id)}"
@@ -104,10 +111,17 @@
                (matChipInputTokenEnd)="addTag($event)">
       </mat-chip-list>
     </mat-form-field>
+    <div *ngIf="!isTagCreated"
+         class="validation-error-message">
+      At least one tag is required
+    </div>
   </div>
-  <div class="nav">
-    <div (click)="navigate('')">BOARD</div>
+  <div class="nav" *ngIf="project.id !== undefined">
     <div (click)="navigate('team')">TEAM</div>
+    <div (click)="navigate('')">BOARD</div>
     <div (click)="navigate('')">WIKI</div>
+  </div>
+  <div class="nav" *ngIf="project.id == undefined">
+    <a (click)="createNewProject()" class="save-btn">Save</a>
   </div>
 </div>

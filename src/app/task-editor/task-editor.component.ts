@@ -38,21 +38,25 @@ export class TaskEditorComponent implements OnInit {
 
   form: FormGroup;
 
+  projectId: number;
+
   constructor(private editorService: TaskEditorService,
               private taskService: TaskService,
               private mainComponent: MainComponent) {
   }
 
   ngOnInit(): void {
+    this.projectId = Number(localStorage.getItem('projectId'));
+
     this.form = new FormGroup({
-        title: new FormControl('New task', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(120)
-        ]),
-        assignee: new FormControl('', [Validators.required]),
-        milestone: new FormControl('', [Validators.required]),
-        estimate: new FormControl('',),
+      title: new FormControl('New task', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(120)
+      ]),
+      assignee: new FormControl('', [Validators.required]),
+      milestone: new FormControl('', [Validators.required]),
+      estimate: new FormControl('',),
         dueDate: new FormControl('', [Validators.required]),
         priority: new FormControl('MEDIUM'),
         tag: new FormControl('', [Validators.required]),
@@ -66,11 +70,11 @@ export class TaskEditorComponent implements OnInit {
       this.assignees = items;
     })
 
-    this.taskService.getMilestones(1).subscribe(items => {
+    this.taskService.getMilestones(this.projectId).subscribe(items => {
       this.milestones = items;
     })
 
-    this.taskService.getTags(1).subscribe(items => {
+    this.taskService.getTags(this.projectId).subscribe(items => {
       this.tags = items;
     })
 
@@ -160,7 +164,7 @@ export class TaskEditorComponent implements OnInit {
       let updatedTask = new Task();
 
       if (this.taskId) {
-        this.taskService.edit(task, this.taskId, 1, 1).subscribe(() => {
+        this.taskService.edit(task, this.taskId, this.projectId, 1).subscribe(() => {
           console.log(task)
           updatedTask = new Task().deserialize(task);
 

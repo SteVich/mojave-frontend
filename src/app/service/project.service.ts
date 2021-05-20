@@ -17,8 +17,16 @@ export class ProjectService implements OnInit {
   ngOnInit() {
   }
 
+  geAllProjectsForUser(): Observable<Project[]> {
+    return this.http.get<Project[]>(environment.API_URL + '/project');
+  }
+
   getProject(id: number): Observable<Project> {
     return this.http.get<Project>(environment.API_URL + '/project/' + id);
+  }
+
+  createProject(project: Project): Observable<Project> {
+    return this.http.post<Project>(environment.API_URL + '/project', project);
   }
 
   saveProjectName(id: number, name: string): Observable<ApiResponse> {

@@ -15,10 +15,10 @@
   </div>
   <div class="projects">
     <div class="cards-list">
-      <div *ngFor="let project of projects">
+      <div *ngFor="let project of projects, let index = index">
         <div class="card" (click)="routeToProject(project)">
           <div class="card_image">
-            <img [src]="project.imageUrl"/>
+            <img [src]="project.imageUrl" (error)="setDefaultImageUrl(index)"/>
           </div>
           <div class="card_title title-white">
             <p>{{project.name}}</p>
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="card" style="border: dashed 1px gray !important;">
+      <div class="card create" (click)="createNewProject()">
         <div class="card_image" matRipple>
           <img src="https://icon-library.com/images/icon-small/icon-small-15.jpg"></div>
         <div class="card_title title-white">
