@@ -21,15 +21,25 @@
     </mat-form-field>
     <mat-form-field class="description">
       <mat-label>Description</mat-label>
-      <input matInput #description maxlength="256" placeholder="Short description" matTooltip="press enter to save"
+      <input matInput #description maxlength="120" placeholder="Short description" matTooltip="press enter to save"
              [ngModel]="project.description" (keyup.enter)="saveProjectDescription($event.target.value)">
       <mat-hint align="end">{{description.value.length}} / 120</mat-hint>
     </mat-form-field>
-    <mat-form-field class="image-url">
-      <mat-label>Image url</mat-label>
-      <input matInput placeholder="http://" matTooltip="press enter to save"
-             [ngModel]="project.imageUrl" (keyup.enter)="saveProjectImageUrl($event.target.value)">
-    </mat-form-field>
+    <div [formGroup]="imageForm" class="image-url">
+      <mat-form-field style="width: 100%">
+        <mat-label>Image url</mat-label>
+        <input matInput placeholder="http://"
+               formControlName="imageUrl"
+               matTooltip="press enter to save"
+               (keyup.enter)="saveProjectImageUrl()">
+      </mat-form-field>
+      <div *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)"
+           class="validation-error-message">
+        <div *ngIf="imageUrl.errors.pattern">
+          URL is invalid
+        </div>
+      </div>
+    </div>
   </div>
   <div class="milestone">
     <mat-form-field>
@@ -53,16 +63,28 @@
       <mat-label>Tags</mat-label>
       <mat-chip-list #tagList>
         <mat-chip *ngFor="let tag of tags"
-                  [(colorPicker)]="color" (colorPickerChange)="saveTagColor(color, tag)"
-                  [style.background]="chipsBackgroundMap.get(tag.id)"
-                  [cpCancelButton]="true"
-                  [cpOKButton]="true"
-                  [cpCancelButtonClass]="'button'"
-                  [cpPresetColors]="['#16ec21', '#e57615', '#2889e9', '#d516d5', '#fff500', '#0d30ed']"
-                  (click)="$event.stopPropagation();"
+                  [ngStyle]="{'background-color': chipsBackgroundMap.get(tag.id)}"
+                  [matMenuTriggerFor]="colorMenu"
                   [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
           {{tag.name}}
           <mat-icon matChipRemove>cancel</mat-icon>
+          <mat-menu #colorMenu="matMenu" class="color-menu">
+            <div>
+              <mat-icon [ngStyle]="{'color': '#0764ef'}" (click)="saveTagColor('#0764ef', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#2fdb11'}" (click)="saveTagColor('#2fdb11', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#efeb07'}" (click)="saveTagColor('#efeb07', tag)">opacity</mat-icon>
+            </div>
+            <div>
+              <mat-icon [ngStyle]="{'color': '#ef0707'}" (click)="saveTagColor('#ef0707', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#6007ef'}" (click)="saveTagColor('#6007ef', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#07efef'}" (click)="saveTagColor('#07efef', tag)">opacity</mat-icon>
+            </div>
+            <div>
+              <mat-icon [ngStyle]="{'color': '#ef7f07'}" (click)="saveTagColor('#ef7f07', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#282e93'}" (click)="saveTagColor('#282e93', tag)">opacity</mat-icon>
+              <mat-icon [ngStyle]="{'color': '#ef07c8'}" (click)="saveTagColor('#ef07c8', tag)">opacity</mat-icon>
+            </div>
+          </mat-menu>
         </mat-chip>
         <input placeholder="New ..." #tagInput
                [matChipInputFor]="tagList"

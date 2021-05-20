@@ -9,6 +9,7 @@ import {Tag} from "../main/models/tag.model";
 import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-project',
@@ -36,6 +37,8 @@ export class ProjectComponent implements OnInit {
   milestones: Milestone[] = [];
   tags: Tag[] = [];
 
+  imageForm: FormGroup;
+
   constructor(private router: Router,
               private projectService: ProjectService,
               private notifier: NotifierService,
@@ -43,6 +46,10 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.imageForm = new FormGroup({
+      imageUrl: new FormControl('', [Validators.pattern("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?")])
+    });
+
     this.projectService.getProject(this.projectId).subscribe(project => {
       this.project = project;
       this.milestones = project.milestones;
@@ -51,8 +58,14 @@ export class ProjectComponent implements OnInit {
       project.tags.forEach(tag => {
         this.chipsBackgroundMap.set(tag.id, tag.color);
       })
+
+      this.imageForm.get('imageUrl').setValue(project.imageUrl);
       console.log(this.chipsBackgroundMap)
     })
+  }
+
+  get imageUrl() {
+    return this.imageForm.get('imageUrl');
   }
 
   addMilestone(event: MatChipInputEvent): void {
@@ -94,7 +107,7 @@ export class ProjectComponent implements OnInit {
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    let colors = ['#03f60f', '#ea1414', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)'];
+    let colors = ['#0764ef', '#2fdb11', '#efeb07', '#ef0707', '#6007ef', '#07efef', '#ef7f07', '#282e93', '#ef07c8'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
     if (value) {
@@ -145,12 +158,17 @@ export class ProjectComponent implements OnInit {
     this.projectService.saveProjectDescription(this.project.id, value).subscribe()
   }
 
-  saveProjectImageUrl(value) {
-    this.projectService.saveProjectImageUrl(this.project.id, value).subscribe()
+  saveProjectImageUrl() {
+    if (this.imageForm.valid) {
+      this.projectService.saveProjectImageUrl(this.project.id, this.imageUrl.value).subscribe()
+    } else {
+      this.imageForm.markAllAsTouched();
+    }
   }
 
   saveTagColor(value: string, tag: Tag) {
     tag.color = value;
+    this.chipsBackgroundMap.set(tag.id, tag.color);
     this.projectService.updateProjectColor(tag.id, value).subscribe()
   }
 

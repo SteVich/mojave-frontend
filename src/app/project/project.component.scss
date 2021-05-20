@@ -60,6 +60,7 @@
     .image-url {
       padding-left: 1.5rem !important;
       padding-right: 1.5rem !important;
+      width: 100%;
     }
   }
 
@@ -83,8 +84,12 @@
     position: relative;
     font-size: 0.76rem;
 
+    .mat-chip {
+      cursor: pointer;
+    }
+
     input.mat-chip-input {
-      flex: 0!important;
+      flex: 0 !important;
       text-align: left;
     }
 
@@ -122,4 +127,23 @@
 .button {
   font-size: 2rem;
   font-weight: bold !important;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 1rem !important;
+}
+
+.mat-icon {
+  cursor: pointer;
+  margin-left: 0.2rem !important;
+  margin-right: 0.2rem !important;
+
+  &:hover {
+    border-radius: 5px;
+    background-color: #e8e8e8;
+  }
+}
+
+::ng-deep .error {
+  color: red;
 }
