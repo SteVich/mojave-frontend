@@ -107,20 +107,19 @@
   }
 }
 
-
 ::ng-deep .cdk-overlay-connected-position-bounding-box {
   padding-top: 3rem;
   margin-left: -76px;
-
   text-align: center;
 }
 
 ::ng-deep .mat-menu-content:not(:empty) {
-  width: 15rem;
+  min-width: 15rem;
+  max-width: 55rem !important;
   flex-direction: column;
   display: flex;
   justify-content: center;
-  padding: 8px;
+  padding: 12px 0;
 }
 
 .profile-info {
@@ -128,7 +127,7 @@
   vertical-align: middle;
 
   .name {
-    font-weight: 600;
+    font-weight: 610;
     font-size: 0.8rem;
   }
 
@@ -138,7 +137,7 @@
   }
 
   .role {
-    font-weight: 500;
+    font-weight: 510;
     margin-top: 0.1rem;
     align-items: center;
     vertical-align: middle;
@@ -149,4 +148,53 @@
     color: gray;
     font-size: 1rem;
   }
+
+  .profile-actions {
+    padding-top: 1rem;
+    text-align: start;
+
+    .edit-role {
+      padding: 0 12px;
+      cursor: pointer;
+      font-weight: 410;
+
+      &:hover {
+        background: #d7d7d7;
+      }
+    }
+
+    .remove {
+      padding: 0 12px;
+      cursor: pointer;
+      color: red;
+      font-weight: 410;
+
+      &:hover {
+        background: #d7d7d7;
+      }
+    }
+  }
+}
+
+.edit-role-menu {
+  margin-right: -1000px !important;
+  font-size: 0.7rem;
+}
+
+.edit-role {
+  margin-top: -1rem !important;
+
+  .edit-role-btn {
+    background: #3747ee;
+    color: #fff;
+    font-weight: 1000;
+
+    &:hover {
+      background: #1022d4;
+    }
+  }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  font-size: 0.6rem !important;
 }

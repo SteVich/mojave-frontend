@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export class ApiResponse {
 
   message: string;
   success: boolean;

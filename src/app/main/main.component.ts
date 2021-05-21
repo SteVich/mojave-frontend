@@ -10,6 +10,7 @@ import {BoardColumnService} from "../service/board-column.service";
 import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -30,11 +31,15 @@ export class MainComponent implements OnInit {
               private taskService: TaskService,
               private boardColumnService: BoardColumnService,
               private notifierService: NotifierService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.projectId = Number(localStorage.getItem('projectId'));
+    if (!this.projectId) {
+      this.router.navigate(['home'])
+    }
 
     this.boardService.getDefaultForProject(this.projectId).subscribe((board) => {
       this.board = board;

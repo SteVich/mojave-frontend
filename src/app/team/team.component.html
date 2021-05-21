@@ -23,19 +23,46 @@
           </div>
         </div>
         <mat-menu #viewProfileMenu="matMenu" class="menu">
-          <div class="profile-info">
+          <div class="profile-info" (click)="$event.stopPropagation()">
             <div class="name">
-              Vitaliy
+              {{member.name}}
             </div>
             <div class="email">
               <mat-icon class="material-icons-outlined icon">email</mat-icon>
-              trozzato@gmail.com
+              {{member.email}}
             </div>
             <div class="role">
-              <mat-icon class="material-icons-outlined icon">assignment_ind</mat-icon>
-              Project Owner
+              {{member.role}}
+            </div>
+            <div class="profile-actions" *ngIf="member.role != 'Project Owner'">
+              <div class="edit-role" [matMenuTriggerFor]="editRoleMenu" matRipple>
+                <mat-icon class="material-icons-outlined icon">manage_accounts</mat-icon>
+                Edit role
+              </div>
+              <div class="remove" matRipple (click)="removeMemberFromProject(member)">
+                <mat-icon class="material-icons-outlined icon">person_remove_alt_1</mat-icon>
+                Remove from project
+              </div>
             </div>
           </div>
+          <mat-menu #editRoleMenu="matMenu" class="edit-role-menu" [overlapTrigger]="false"
+                    yPosition="below" xPosition="before">
+            <div (click)="$event.stopPropagation()">
+              <div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Role</mat-label>
+                  <mat-select [(value)]="member.role">
+                    <mat-option [value]="role" *ngFor="let role of roles">{{ role }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="edit-role">
+                <button mat-icon-button class="edit-role-btn" (click)="setNewRole(member.id, member.role)">
+                  <mat-icon class="material-icons-outlined icon">check</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-menu>
         </mat-menu>
       </div>
 
