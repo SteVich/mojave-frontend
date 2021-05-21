@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
               private projectService: ProjectService) {
   }
 
-  defaultImageUrl: string = 'https://i.redd.it/b3esnz5ra34y.jpg' //todo: it does not work
+  defaultImageUrl: string = 'https://i.redd.it/b3esnz5ra34y.jpg';
   projects: Project[] = [];
 
   ngOnInit(): void {

@@ -1,0 +1,152 @@
+
+.home-container {
+  padding: 4rem 16rem;
+  background: #fff;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-width: 1300px;
+
+  .welcome {
+    flex: 0;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+    color: #787878;
+
+    .image {
+      height: 10rem;
+      width: 20rem;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+
+    .hello {
+      color: #393939;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .projects {
+    flex: 1;
+    background: #fff;
+    border-top: solid 2px #a8a8a8;
+
+    .cards-list {
+      z-index: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      margin: 1.85rem 1rem 30px 3rem;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 10px blue;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .card .card_image {
+      width: inherit;
+      height: inherit;
+      border-radius: 50%;
+    }
+
+    .card .card_image img {
+      width: inherit;
+      height: inherit;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .card .card_title {
+      text-align: center;
+      border-radius: 0 0 30px 30px;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      height: 40px;
+    }
+
+    .card:hover {
+      transform: scale(0.9, 0.9);
+      box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
+      -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+    }
+
+    .title-white {
+      padding-top: 0.8rem;
+      color: gray;
+    }
+
+    .title-black {
+      color: black;
+    }
+
+    @media all and (max-width: 500px) {
+      .card-list {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .create {
+    border: dashed 1px gray !important;
+  }
+}
+
+
+::ng-deep .cdk-overlay-connected-position-bounding-box {
+  padding-top: 3rem;
+  margin-left: -76px;
+
+  text-align: center;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  width: 15rem;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+}
+
+.profile-info {
+  font-size: 0.7rem;
+  vertical-align: middle;
+
+  .name {
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .email {
+    margin-top: 0.1rem;
+    color: gray;
+  }
+
+  .role {
+    font-weight: 500;
+    margin-top: 0.1rem;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  .icon {
+    padding-top: 3px;
+    color: gray;
+    font-size: 1rem;
+  }
+}

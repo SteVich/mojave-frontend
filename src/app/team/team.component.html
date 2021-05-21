@@ -1,3 +1,52 @@
 <app-header></app-header>
-<p>team works!</p>
 
+<div class="home-container">
+  <div class="welcome">
+    <div class="image" matRipple>
+      <img src="/assets/images/team.svg" class="image" alt=""/>
+    </div>
+    <div class="welcome-text">
+      <div class="hello">
+        Your Team
+      </div>
+    </div>
+  </div>
+  <div class="projects">
+    <div class="cards-list">
+      <div *ngFor="let member of members, let index = index">
+        <div class="card" [matMenuTriggerFor]="viewProfileMenu">
+          <div class="card_image">
+            <img src="/assets/images/profile.svg"/>
+          </div>
+          <div class="card_title title-white">
+            {{member.username}}
+          </div>
+        </div>
+        <mat-menu #viewProfileMenu="matMenu" class="menu">
+          <div class="profile-info">
+            <div class="name">
+              Vitaliy
+            </div>
+            <div class="email">
+              <mat-icon class="material-icons-outlined icon">email</mat-icon>
+              trozzato@gmail.com
+            </div>
+            <div class="role">
+              <mat-icon class="material-icons-outlined icon">assignment_ind</mat-icon>
+              Project Owner
+            </div>
+          </div>
+        </mat-menu>
+      </div>
+
+      <div class="card create">
+        <div class="card_image" matRipple>
+          <img src="https://icon-library.com/images/icon-small/icon-small-15.jpg"></div>
+        <div class="card_title title-white">
+          <p>Add</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
