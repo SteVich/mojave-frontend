@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {User} from "../common/models/user.model";
 import {TeamService} from "../service/team.service";
 import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
+import {InviteMemberComponent} from "./invite-member/invite-member.component";
 
 @Component({
   selector: 'app-team',
@@ -52,5 +53,12 @@ export class TeamComponent implements OnInit {
     this.teamService.saveRole(id, role).subscribe(apiResponse => {
       this.notifier.showSuccessNotification(apiResponse.message, 2000)
     })
+  }
+
+  addMembers() {
+    const dialogRef = this.dialog.open(InviteMemberComponent, {
+      width: '580px',
+      data: this.projectId
+    });
   }
 }

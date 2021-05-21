@@ -21,9 +21,6 @@ export class ProjectComponent implements OnInit {
   @ViewChild("milestoneInput")
   milestoneInput: ElementRef;
 
-  @ViewChild("milestoneInput")
-  tagList: ElementRef;
-
   @ViewChild("tagInput")
   tagInput: ElementRef;
 

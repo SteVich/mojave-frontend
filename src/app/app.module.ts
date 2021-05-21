@@ -44,6 +44,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HomeComponent} from './home/home.component';
 import {ProjectComponent} from './project/project.component';
 import {ColorPickerModule} from "ngx-color-picker";
+import { InviteMemberComponent } from './team/invite-member/invite-member.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {ColorPickerModule} from "ngx-color-picker";
     ConfirmComponent,
     HomeComponent,
     ProjectComponent,
+    InviteMemberComponent,
   ],
   imports: [
     BrowserModule,

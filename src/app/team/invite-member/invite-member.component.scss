@@ -1,0 +1,46 @@
+
+.dialog-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  text-align: center;
+  border-bottom: 1px solid gray;
+  margin-top: -0.5rem !important;
+  padding-bottom: 0.5rem;
+}
+
+.dialog-content {
+  text-align: center;
+  font-size: 1em;
+  width: 100%;
+}
+
+.add-field {
+  width: 100%;
+  padding-left: 48px;
+}
+
+.add-field-description {
+  width: 100%;
+  padding-left: 48px;
+  font-size: 0.8rem !important;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 0 !important;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: -20px !important;
+  padding-top: -20px !important;
+}
+
+.buttons {
+  justify-content: center !important;
+}
+
+.no-btn:hover {
+  color: gray;
+}
+
+.yes-btn:hover {
+  color: #0d0de3;
+}
