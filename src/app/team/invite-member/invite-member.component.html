@@ -3,32 +3,45 @@
     Invite members to the project
   </div>
   <div mat-dialog-content class="dialog-content">
-    <mat-form-field class="add-field" appearance="outline">
-      <mat-label>Emails</mat-label>
-      <mat-chip-list #emails>
-        <mat-chip *ngFor="let email of emailsToInvite"
-                  [selectable]="true" [removable]="true" (removed)="remove(email)">
-          {{email}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input #emailsInput
-               [disabled]="emailsToInvite.length > 4"
-               [placeholder]="emailsToInvite.length > 4 ? 'Only 5 are allowed per one request' : 'Add new..'"
-               [matChipInputFor]="emails"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="true"
-               (matChipInputTokenEnd)="addToEmailList($event)">
-      </mat-chip-list>
-    </mat-form-field>
-
+    <div [formGroup]="emailForm" [ngClass]="{'warn':email.invalid && (email.dirty || email.touched)}">
+      <mat-form-field class="add-field" appearance="outline">
+        <mat-label>Emails</mat-label>
+        <mat-chip-list #emails>
+          <mat-chip *ngFor="let email of emailsToInvite"
+                    [selectable]="true" [removable]="true" (removed)="remove(email)">
+            {{email}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input #emailsInput formControlName="email"
+                 [disabled]="emailsToInvite.length > 4"
+                 [placeholder]="emailsToInvite.length > 4 ? 'Only 5 are allowed per one request' : 'Add new..'"
+                 [matChipInputFor]="emails"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="addToEmailList($event)">
+        </mat-chip-list>
+      </mat-form-field>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="validation-error">
+        <div *ngIf="email.errors.email">
+          Email is invalid
+        </div>
+        <div *ngIf="email.errors.emailExists">
+          Member with this email is already added
+        </div>
+        <div *ngIf="emailsToInvite.length < 1 && !email.errors.email && !email.errors.emailExists">
+          Please provide at least one email
+        </div>
+      </div>
+    </div>
     <mat-form-field class="add-field-description" appearance="outline">
       <mat-label>Message</mat-label>
-      <textarea matInput placeholder="Message to the emails (optional)"></textarea>
+      <textarea matInput placeholder="Message to the emails (optional)" #messageInput></textarea>
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="buttons">
     <button mat-button class="no-btn" (click)="onNoClick()">Cancel</button>
-    <button mat-button class="yes-btn" [mat-dialog-close]="true">Invite</button>
+    <button mat-button class="yes-btn" (click)="inviteMembers()">Invite</button>
   </div>
 </div>
 

@@ -89,6 +89,7 @@
     .title-white {
       padding-top: 0.8rem;
       color: gray;
+      text-align: center;
     }
 
     .title-black {
@@ -109,17 +110,22 @@
 
 ::ng-deep .cdk-overlay-connected-position-bounding-box {
   padding-top: 3rem;
-  margin-left: -76px;
+  margin-left: -6.8rem;
   text-align: center;
 }
 
+::ng-deep .mat-menu-panel {
+  min-width: 19rem !important;
+  max-width: 30rem !important;
+}
+
 ::ng-deep .mat-menu-content:not(:empty) {
-  min-width: 15rem;
-  max-width: 55rem !important;
+  min-width: 19rem !important;
+  max-width: 30rem !important;
   flex-direction: column;
   display: flex;
   justify-content: center;
-  padding: 12px 0;
+  padding: 12px 2px;
 }
 
 .profile-info {
@@ -182,7 +188,7 @@
 }
 
 .edit-role {
-  margin-top: -1rem !important;
+  margin-top: -10px !important;
 
   .edit-role-btn {
     background: #3747ee;

@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.geAllProjectsForUser().subscribe(projects => {
-      console.log()
       this.projects = projects;
       this.projects.forEach(project => {
 
@@ -43,7 +42,6 @@ export class HomeComponent implements OnInit {
   }
 
   setDefaultImageUrl(index: number) {
-    console.log("asdad")
     this.projects[index].imageUrl = this.defaultImageUrl;
   }
 }

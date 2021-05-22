@@ -148,10 +148,6 @@
   color: red;
 }
 
-.validation-error-message {
-  color: red;
-}
-
 a {
   font-size: 0.7rem;
   padding: 0.5rem 2rem;
@@ -161,7 +157,7 @@ a {
 
 .save-btn {
   text-decoration: none;
-  border-radius: 35px;
+  border-radius: 10px;
   border: 2px solid rgb(66, 69, 217);
   position: relative;
   overflow: hidden;

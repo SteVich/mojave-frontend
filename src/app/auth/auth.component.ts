@@ -33,13 +33,18 @@ export class AuthComponent implements OnInit {
     const accessToken = this.activatedRoute.snapshot.queryParams['accessToken'];
     const refreshToken = this.activatedRoute.snapshot.queryParams['refreshToken'];
     const userId = this.activatedRoute.snapshot.queryParams['userId'];
+    const projectsCount = this.activatedRoute.snapshot.queryParams['projectsCount'];
 
     if (accessToken && refreshToken) {
       this.authService.setUserTokens(accessToken, refreshToken, userId);
     }
 
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['']);
+      if (projectsCount === 1) {
+        this.router.navigate(['']);
+      } else {
+        this.router.navigate(['home']);
+      }
     }
   }
 

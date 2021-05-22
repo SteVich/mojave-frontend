@@ -1,10 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "../common/models/user.model";
 import {TeamService} from "../service/team.service";
 import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
 import {InviteMemberComponent} from "./invite-member/invite-member.component";
+import {MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'app-team',
@@ -12,6 +13,8 @@ import {InviteMemberComponent} from "./invite-member/invite-member.component";
   styleUrls: ['./team.component.scss']
 })
 export class TeamComponent implements OnInit {
+
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   projectId: number;
   members: User[] = [];
@@ -26,7 +29,7 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     this.projectId = Number(localStorage.getItem('projectId'));
 
-    this.teamService.getTeamMembers().subscribe(members => {
+    this.teamService.getTeamMembers(this.projectId).subscribe(members => {
       this.members = members;
     })
   }
@@ -50,13 +53,14 @@ export class TeamComponent implements OnInit {
   }
 
   setNewRole(id: number, role: string) {
-    this.teamService.saveRole(id, role).subscribe(apiResponse => {
-      this.notifier.showSuccessNotification(apiResponse.message, 2000)
-    })
+    this.teamService.saveRole(this.projectId, id, role).subscribe(apiResponse => {
+      this.notifier.showSuccessNotification(apiResponse.message, 2000);
+    });
+    this.trigger.closeMenu();
   }
 
   addMembers() {
-    const dialogRef = this.dialog.open(InviteMemberComponent, {
+    this.dialog.open(InviteMemberComponent, {
       width: '580px',
       data: this.projectId
     });

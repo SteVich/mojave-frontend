@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
       this.selectedNavItem = 1;
     }
 
-    console.log(this.router.url)
     this.userService.getCurrentUser().subscribe(user => {
       this.username = user.username;
     })

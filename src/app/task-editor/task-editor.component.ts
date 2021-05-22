@@ -80,7 +80,6 @@ export class TaskEditorComponent implements OnInit {
 
     this.editorService.getTaskDataToEdit().subscribe((task) => {
       if (task) {
-        console.log(task)
         let title = task.title;
         if (!title) {
           title = "New task"
@@ -165,7 +164,6 @@ export class TaskEditorComponent implements OnInit {
 
       if (this.taskId) {
         this.taskService.edit(task, this.taskId, this.projectId, 1).subscribe(() => {
-          console.log(task)
           updatedTask = new Task().deserialize(task);
 
           setTimeout(() => {

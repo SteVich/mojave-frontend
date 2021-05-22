@@ -78,6 +78,8 @@ export class AuthService {
     localStorage.removeItem(`accessToken`);
     localStorage.removeItem(`refreshToken`);
     localStorage.removeItem(`userId`);
+    localStorage.removeItem(`projectId`);
+    localStorage.removeItem(`isUserNotNew`);
   }
 
   getUserId(): string {

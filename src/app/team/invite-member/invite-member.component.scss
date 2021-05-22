@@ -44,3 +44,17 @@
 .yes-btn:hover {
   color: #0d0de3;
 }
+
+.warn {
+  color: red;
+}
+
+.validation-error {
+  color: red;
+  font-size: 0.65rem;
+  padding-left: 48px;
+  margin-top: -10px;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 9px;
+}
