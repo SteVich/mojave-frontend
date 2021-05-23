@@ -179,22 +179,22 @@
 }
 
 .btm {
-  margin-bottom: 0;
-  width: 100%;
+  margin-bottom: 0 !important;
+  width: 100% !important;
 }
 
 .btm2 {
-  padding-top: 0.6rem;
-  margin-bottom: 1.9rem;
-  margin-top: 0.4rem;
+  padding-top: 0.6rem !important;
+  margin-bottom: 1.9rem !important;
+  margin-top: 0.4rem !important;
 }
 
 .mat-form-field {
-  width: 12rem;
+  width: 12rem !important;
 }
 
 .mat-form-field-wrapper {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem !important;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-appearance-legacy {
@@ -207,6 +207,6 @@
 
 .validation-error-message {
   text-align: start !important;
-  padding-left: 1.2rem;
-  font-size: 0.6rem;
+  padding-left: 1.2rem !important;
+  font-size: 0.6rem !important;
 }

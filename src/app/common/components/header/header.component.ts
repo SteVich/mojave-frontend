@@ -13,7 +13,7 @@ import {AuthService} from "../../../auth/auth.service";
 export class HeaderComponent implements OnInit {
 
   menuIcon = faBars
-  selectedNavItem: number = 1
+  selectedNavItem: number = 0
   username: string
 
   @Input("hideNavItems")
@@ -67,5 +67,9 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  openProfile() {
+    this.router.navigate(['profile']);
   }
 }

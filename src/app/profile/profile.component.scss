@@ -1,0 +1,115 @@
+.profile-container {
+  padding: 4rem 16rem 0 16rem;
+  background: #fff;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 1300px;
+
+  .welcome {
+    flex: 0;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 0.9rem;
+    border-bottom: 2px solid;
+    font-weight: 500;
+    color: #787878;
+
+    .image {
+      height: 12rem;
+      width: 12rem;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .hello {
+      margin-bottom: 0.5rem;
+      color: #393939;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .name-container {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 0.8rem;
+    padding-top: 1.2rem;
+
+    .name {
+      width: 40%;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .password {
+      padding-top: 0.5rem;
+      width: 40%;
+      text-align: center;
+      font-weight: 600;
+    }
+  }
+
+  .validation-error-message {
+    color: red;
+    font-weight: 550;
+  }
+
+  .warn {
+    color: red;
+  }
+
+  .save {
+    display: flex;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+
+  a {
+    font-size: 0.7rem;
+    padding: 0.5rem 2rem;
+    color: #0561e8;
+    text-transform: uppercase;
+  }
+
+  .save-btn {
+    text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid rgb(66, 69, 217);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .save-btn:hover {
+    box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+  }
+
+  .save-btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(146, 148, 248, 0.4),
+        transparent
+    );
+    transition: all 650ms;
+  }
+
+  .save-btn:hover:before {
+    left: 100%;
+  }
+
+}

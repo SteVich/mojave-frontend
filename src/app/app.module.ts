@@ -45,6 +45,7 @@ import {HomeComponent} from './home/home.component';
 import {ProjectComponent} from './project/project.component';
 import {ColorPickerModule} from "ngx-color-picker";
 import { InviteMemberComponent } from './team/invite-member/invite-member.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { InviteMemberComponent } from './team/invite-member/invite-member.compon
     HomeComponent,
     ProjectComponent,
     InviteMemberComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

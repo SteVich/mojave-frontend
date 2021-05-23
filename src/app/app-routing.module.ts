@@ -6,6 +6,7 @@ import {AuthGuard} from "./auth/auth.guard";
 import {TeamComponent} from "./team/team.component";
 import {HomeComponent} from "./home/home.component";
 import {ProjectComponent} from "./project/project.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'project', component: ProjectComponent, canActivate: [AuthGuard]},
   {path: 'team', component: TeamComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 

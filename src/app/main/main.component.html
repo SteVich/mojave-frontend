@@ -53,7 +53,7 @@
              (cdkDropListDropped)="drop($event, column.id)">
           <div class="task" *ngFor="let task of column.tasks; let taskIndex = index" cdkDrag matRipple>
             <div class="task-header">
-              <div class="task-type">
+              <div class="task-type" [ngStyle]="{'background': task.tag.color}">
               </div>
               <div class="task-actions" [matMenuTriggerFor]="taskActionsMenu">
                 <div class="icon">

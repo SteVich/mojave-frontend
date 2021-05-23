@@ -24,13 +24,13 @@ a {
 
 nav a:hover {
   color: gray;
-  border-bottom: solid 4px gray;
+  border-bottom: solid 5px gray;
 }
 
 nav {
   font-size: 0.9rem;
   position: absolute;
-  top: 0.4rem;
+  top: 0.5rem;
   width: 10%;
   display: table;
   margin: 0 auto;
@@ -97,7 +97,7 @@ nav a:hover:before, nav a:hover:after {
   color: var(--main-color) !important;
   border-radius: 1px;
   transition: 0.2s ease left;
-  border-bottom: solid 4px var(--main-color) !important;
+  border-bottom: solid 5px var(--main-color) !important;
 }
 
 .menu-icon {
