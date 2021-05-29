@@ -10,6 +10,7 @@ import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-project',
@@ -40,14 +41,22 @@ export class ProjectComponent implements OnInit {
   isMilestoneCreated: boolean = true;
   isTagCreated: boolean = true;
 
+  role: string = 'ROLE_DEVELOPER';
+
   constructor(private router: Router,
               private projectService: ProjectService,
               private notifier: NotifierService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private jwtHelper: JwtHelperService) {
   }
 
   ngOnInit(): void {
     this.projectId = Number(localStorage.getItem('projectId'));
+
+    const token = localStorage.getItem('accessToken');
+    this.jwtHelper.decodeToken(token).roles
+      .filter(roleObject => roleObject.projectId == this.projectId)
+      .forEach(roleObject => this.role = roleObject.role);
 
     this.imageForm = new FormGroup({
       imageUrl: new FormControl('', [Validators.pattern("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?")])

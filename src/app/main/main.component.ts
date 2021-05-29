@@ -11,6 +11,7 @@ import {NotifierService} from "../common/services/notifier.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
 import {Router} from "@angular/router";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 
 @Component({
@@ -26,6 +27,9 @@ export class MainComponent implements OnInit {
   isAddNewSectionHidden: boolean = false;
 
   projectId: number;
+  role: string = 'ROLE_DEVELOPER';
+
+  showSpinner = true;
 
   constructor(private taskEditorService: TaskEditorService,
               private boardService: BoardService,
@@ -33,17 +37,27 @@ export class MainComponent implements OnInit {
               private boardColumnService: BoardColumnService,
               private notifierService: NotifierService,
               private dialog: MatDialog,
-              private router: Router) {
+              private router: Router,
+              private jwtHelper: JwtHelperService) {
   }
 
   ngOnInit() {
     this.projectId = Number(localStorage.getItem('projectId'));
+
     if (!this.projectId) {
       this.router.navigate(['home'])
     }
 
+    const token = localStorage.getItem('accessToken');
+    this.jwtHelper.decodeToken(token).roles
+      .filter(roleObject => roleObject.projectId == this.projectId)
+      .forEach(roleObject => this.role = roleObject.role);
+
     this.boardService.getDefaultForProject(this.projectId).subscribe((board) => {
-      this.board = board;
+      setTimeout(() => {
+        this.board = board;
+        this.showSpinner = false;
+      }, 200)
     }, (error => {
       console.log(error)
     }));

@@ -6,6 +6,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
 import {InviteMemberComponent} from "./invite-member/invite-member.component";
 import {MatMenuTrigger} from "@angular/material/menu";
+import {Role} from "../auth/model/role.model";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-team',
@@ -20,14 +22,21 @@ export class TeamComponent implements OnInit {
   members: User[] = [];
   selectedRole: string;
   roles: string[] = ['PM', 'DEV', 'QA']
+  role: string = 'ROLE_DEVELOPER';
 
   constructor(private teamService: TeamService,
               private notifier: NotifierService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private jwtHelper: JwtHelperService) {
   }
 
   ngOnInit(): void {
     this.projectId = Number(localStorage.getItem('projectId'));
+
+    const token = localStorage.getItem('accessToken');
+    this.jwtHelper.decodeToken(token).roles
+      .filter(roleObject => roleObject.projectId == this.projectId)
+      .forEach(roleObject => this.role = roleObject.role);
 
     this.teamService.getTeamMembers(this.projectId).subscribe(members => {
       this.members = members;

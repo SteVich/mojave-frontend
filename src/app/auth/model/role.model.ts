@@ -1,0 +1,6 @@
+export enum Role {
+  PO = 'ROLE_PROJECT_OWNER',
+  PM = 'ROLE_PROJECT_MANAGER',
+  QA = 'ROLE_QA',
+  DEV = 'ROLE_DEVELOPER',
+}

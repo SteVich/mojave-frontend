@@ -2,7 +2,6 @@
 .project-container {
   padding: 4rem 16rem 0 16rem;
   background: #fff;
-  min-height: 100vh !important;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -39,7 +38,7 @@
   .names {
     border-top: solid 2px #a8a8a8;
     height: 100%;
-    padding: 1rem 6rem 1rem 6rem;
+    padding: 1rem 6rem 0 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,8 +128,12 @@
   font-weight: bold !important;
 }
 
-::ng-deep .mat-menu-panel {
+/*::ng-deep .mat-menu-panel {
   min-width: 1rem !important;
+}*/
+
+.mat-menu-panel {
+  min-width: 1rem;
 }
 
 .mat-icon {

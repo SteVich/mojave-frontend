@@ -1,7 +1,7 @@
 .profile-container {
   padding: 4rem 16rem 0 16rem;
   background: #fff;
-  min-height: 100vh !important;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -111,5 +111,4 @@
   .save-btn:hover:before {
     left: 100%;
   }
-
 }

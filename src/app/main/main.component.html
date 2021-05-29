@@ -3,7 +3,8 @@
 
 <div class="board">
   <div class="board-wrapper">
-    <div class="board-columns" cdkDropListGroup>
+    <app-loader *ngIf="showSpinner"></app-loader>
+    <div class="board-columns" cdkDropListGroup *ngIf="!showSpinner">
       <div class="board-column" *ngFor="let column of board.columns; let columnIndex = index">
         <div class="column-title">
           <div class="column-title-text">
@@ -23,6 +24,7 @@
               <i class="fas fa-plus"></i>
             </div>
             <div class="icon" [matMenuTriggerFor]="actionsMenu"
+                 *ngIf="role == 'ROLE_PROJECT_MANAGER' || role == 'ROLE_PROJECT_OWNER'"
                  matTooltip="Actions"
                  [matTooltipPosition]="'below'">
               <i class="fas fa-ellipsis-h"></i>
@@ -64,7 +66,8 @@
                     <mat-icon>control_point_duplicate</mat-icon>
                     <span>Duplicate</span>
                   </button>
-                  <button mat-menu-item matRipple (click)="deleteTask(task.id, taskIndex, column.id)">
+                  <button mat-menu-item matRipple *ngIf="role != 'ROLE_DEVELOPER'"
+                          (click)="deleteTask(task.id, taskIndex, column.id)">
                     <mat-icon>delete</mat-icon>
                     <span>Delete</span>
                   </button>
@@ -100,7 +103,8 @@
           </div>
         </div>
       </div>
-      <div class="add-board-column" (click)="addColumn()" *ngIf="!isAddNewSectionHidden">
+      <div class="add-board-column" (click)="addColumn()"
+           *ngIf="!isAddNewSectionHidden && (role == 'ROLE_PROJECT_MANAGER' || role == 'ROLE_PROJECT_OWNER')">
         <span>+ Add section</span>
       </div>
     </div>

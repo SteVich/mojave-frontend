@@ -27,8 +27,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.router.url == '/team') {
-      this.selectedNavItem = 3;
-    } else if (this.router.url == '/wiki') {
       this.selectedNavItem = 2;
     } else if (this.router.url == '/') {
       this.selectedNavItem = 1;
@@ -42,12 +40,6 @@ export class HeaderComponent implements OnInit {
   gotoBoard() {
     if (this.router.url !== '/') {
       this.router.navigate(['']);
-    }
-  }
-
-  gotoTasks() {
-    if (this.router.url !== 'task') {
-      this.router.navigate(['task']);
     }
   }
 

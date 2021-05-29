@@ -1,13 +1,16 @@
-@import "/node_modules/bulma/bulma.sass";
+html {
+  overflow-y: auto;
+}
 
 .board {
   padding-top: 2.56rem;
-  min-height: 100vh !important;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   min-width: 0;
   background: #fff;
+  position: relative;
 
   .board-wrapper {
     display: flex;
@@ -44,18 +47,6 @@
         .column-title-text {
           text-transform: uppercase;
           font-weight: 700;
-
-          ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-            border: 10px !important;
-          }
-
-          ::ng-deep .mat-form-field-infix {
-            border-top: 0;
-            text-transform: uppercase !important;
-            font-weight: 700;
-            font-family: Poppins sans-serif !important;
-            font-size: 1rem;
-          }
         }
 
         .column-title-settings-container {
@@ -120,7 +111,7 @@
   0 3px 14px 2px rgba(0, 0, 0, 0.05);
 
   .task-header {
-    overflow-y: visible !important;
+    overflow-y: auto;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -149,7 +140,7 @@
   }
 
   .task-body {
-    flex-basis: auto !important;
+    flex-basis: auto;
     min-height: 2rem;
   }
 
@@ -242,10 +233,6 @@
   font-size: 0.7rem !important;
 }
 
-::ng-deep .mat-input-element {
-  line-height: normal !important;
-}
-
 .mat-menu-panel {
-  width: 10rem !important;
+  width: 10rem;
 }

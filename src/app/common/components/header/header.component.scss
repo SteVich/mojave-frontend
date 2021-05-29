@@ -15,6 +15,7 @@
 
 a {
   cursor: pointer;
+  letter-spacing: 0.15vh;
 }
 
 .nav-div {
@@ -30,16 +31,16 @@ nav a:hover {
 nav {
   font-size: 0.9rem;
   position: absolute;
-  top: 0.5rem;
+  top: 0.4rem;
   width: 10%;
   display: table;
+  vertical-align: middle;
   margin: 0 auto;
 }
 
 nav a {
   position: relative;
   width: 33.333%;
-  display: table-cell;
   text-align: center;
   color: var(--main-theme-color);
   text-decoration: none;

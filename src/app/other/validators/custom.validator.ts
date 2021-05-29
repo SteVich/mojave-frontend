@@ -1,6 +1,4 @@
-import {AbstractControl, AsyncValidatorFn, FormControl, ValidationErrors} from '@angular/forms';
-import {Observable, of} from "rxjs";
-import {delay, switchMap} from "rxjs/operators";
+import {FormControl} from '@angular/forms';
 
 export interface ValidationResult {
   [key: string]: boolean;

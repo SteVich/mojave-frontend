@@ -22,7 +22,7 @@
             {{member.username}}
           </div>
         </div>
-        <mat-menu #viewProfileMenu="matMenu" class="menu">
+        <mat-menu #viewProfileMenu="matMenu" class="menu short-profile-menu">
           <div class="profile-info" (click)="$event.stopPropagation()">
             <div class="name">
               {{member.name}}
@@ -34,7 +34,8 @@
             <div class="role">
               {{member.role}}
             </div>
-            <div class="profile-actions" *ngIf="member.role != 'Project Owner'">
+            <div class="profile-actions"
+                 *ngIf="member.role != 'Project Owner' && (role == 'ROLE_PROJECT_MANAGER' || role == 'ROLE_PROJECT_OWNER')">
               <div class="edit-role" [matMenuTriggerFor]="editRoleMenu" matRipple>
                 <mat-icon class="material-icons-outlined icon">manage_accounts</mat-icon>
                 Edit role
@@ -66,7 +67,7 @@
         </mat-menu>
       </div>
 
-      <div class="card create">
+      <div class="card create" *ngIf="role == 'ROLE_PROJECT_MANAGER' || role == 'ROLE_PROJECT_OWNER'">
         <div class="card_image" matRipple (click)="addMembers()">
           <img src="https://icon-library.com/images/icon-small/icon-small-15.jpg"></div>
         <div class="card_title title-white">

@@ -58,19 +58,10 @@
 
     .save-button {
       color: var(--error-message-color);
+      margin-right: 29rem;
 
       button:hover {
         color: #0ec20e;
-        background-color: #e0e0e0;
-      }
-    }
-
-    .delete-button {
-      color: var(--error-message-color);
-      margin-right: 26.6rem;
-
-      button:hover {
-        color: red;
         background-color: #e0e0e0;
       }
     }
@@ -90,7 +81,7 @@
     overflow: auto;
     flex: 0.8;
     padding: 0.7rem;
-    height: auto !important;
+    height: auto;
 
     textarea {
       overflow: auto;
@@ -129,7 +120,7 @@
       z-index: 11 !important;
 
       .tags {
-        width: 100% !important;
+        width: 100%;
       }
 
       .priority-select {
@@ -190,23 +181,23 @@
 }
 
 .mat-form-field {
-  width: 12rem !important;
+  width: 12rem;
 }
 
 .mat-form-field-wrapper {
-  padding-bottom: 0.5rem !important;
+  padding-bottom: 0.5rem;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-appearance-legacy {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .input-field-invalid {
-  border: solid 2px red !important;
+  border: solid 2px red;
 }
 
 .validation-error-message {
-  text-align: start !important;
-  padding-left: 1.2rem !important;
-  font-size: 0.6rem !important;
+  text-align: start;
+  padding-left: 1.2rem;
+  font-size: 0.6rem;
 }
