@@ -1,7 +1,8 @@
 <app-header></app-header>
-
 <div class="home-container">
-  <div class="welcome">
+  <app-loader *ngIf="showSpinner"></app-loader>
+
+  <div class="welcome" *ngIf="!showSpinner">
     <div class="image" matRipple>
       <img src="/assets/images/team.svg" class="image" alt=""/>
     </div>
@@ -11,7 +12,7 @@
       </div>
     </div>
   </div>
-  <div class="projects">
+  <div class="projects" *ngIf="!showSpinner">
     <div class="cards-list">
       <div *ngFor="let member of members, let index = index">
         <div class="card" [matMenuTriggerFor]="viewProfileMenu">

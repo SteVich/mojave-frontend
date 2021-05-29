@@ -41,7 +41,7 @@ export class ProjectComponent implements OnInit {
   isMilestoneCreated: boolean = true;
   isTagCreated: boolean = true;
 
-  role: string = 'ROLE_DEVELOPER';
+  role: string = 'ROLE_PROJECT_OWNER';
 
   constructor(private router: Router,
               private projectService: ProjectService,
@@ -61,6 +61,7 @@ export class ProjectComponent implements OnInit {
     this.imageForm = new FormGroup({
       imageUrl: new FormControl('', [Validators.pattern("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?")])
     });
+
     this.titleForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.min(2)])
     });
@@ -72,7 +73,8 @@ export class ProjectComponent implements OnInit {
 
       project.tags.forEach(tag => {
         this.chipsBackgroundMap.set(tag.id, tag.color);
-      })
+      });
+
       this.imageForm.get('imageUrl').setValue(project.imageUrl);
       this.titleForm.get('name').setValue(project.name);
     }, error => {

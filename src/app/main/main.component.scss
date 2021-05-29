@@ -16,6 +16,14 @@ html {
     display: flex;
     flex-grow: 1;
     overflow-x: auto;
+    position: relative;
+
+    app-loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     .board-columns {
       display: flex;

@@ -23,6 +23,7 @@ export class TeamComponent implements OnInit {
   selectedRole: string;
   roles: string[] = ['PM', 'DEV', 'QA']
   role: string = 'ROLE_DEVELOPER';
+  showSpinner: boolean = true;
 
   constructor(private teamService: TeamService,
               private notifier: NotifierService,

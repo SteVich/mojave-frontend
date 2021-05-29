@@ -8,6 +8,11 @@
   overflow: hidden;
   min-width: 1300px;
 
+  app-loader {
+    padding-top: 39vh;
+    padding-left: 46%;
+  }
+
   .welcome {
     flex: 0;
     justify-content: center;
