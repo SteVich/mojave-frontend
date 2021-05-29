@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "../common/models/user.model";
 import {TeamService} from "../service/team.service";
 import {NotifierService} from "../common/services/notifier.service";
@@ -6,7 +6,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmComponent} from "../common/components/confirm/confirm.component";
 import {InviteMemberComponent} from "./invite-member/invite-member.component";
 import {MatMenuTrigger} from "@angular/material/menu";
-import {Role} from "../auth/model/role.model";
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
@@ -40,7 +39,10 @@ export class TeamComponent implements OnInit {
       .forEach(roleObject => this.role = roleObject.role);
 
     this.teamService.getTeamMembers(this.projectId).subscribe(members => {
-      this.members = members;
+      setTimeout(() => {
+        this.members = members;
+        this.showSpinner = false;
+      }, 200)
     })
   }
 
