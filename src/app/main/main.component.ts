@@ -53,6 +53,8 @@ export class MainComponent implements OnInit {
       .filter(roleObject => roleObject.projectId == this.projectId)
       .forEach(roleObject => this.role = roleObject.role);
 
+    console.log(this.jwtHelper.decodeToken(token).roles)
+
     this.boardService.getDefaultForProject(this.projectId).subscribe((board) => {
       setTimeout(() => {
         this.board = board;
